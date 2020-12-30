@@ -5,6 +5,11 @@
 ## SENSOR FUSION CHANGELOG                     
 ----
 
+## December 29 - Re-add user interface error messages and make visual adjustments to the registration page
+- Fix background image to fill up entire screen
+- Move password requirements bubble to the right side of the passowed input
+- Re-add error messaging for incorrect user input
+
 ## December 28-29 - Added Multi Modal support for PreLoaded and Custom Models 
 - Python pickle obj store for inter instance setting
 - Added Cookies for inter instance model persistance
