@@ -12,6 +12,12 @@
    src: url(../fonts/HelveticaNeue/);
 }
 
+body {
+   background: url(../assets/onboarding_background_001.png) no-repeat center center;
+   /*background-image: src() */
+   background-size: cover;
+   /*height: 100%;*/
+}
 
 button:focus {
    outline: none;
@@ -89,6 +95,7 @@ label {
 
 .login-reg-main {
    margin-left: 20%;
+   padding-right: 20px;
 }
 
 .msg-section {
@@ -118,6 +125,10 @@ label {
    margin: 5px 0;
 }
 
+.halfway {
+   padding-left: 125px;
+}
+
 .pswd-tip .pswd-tip-text {
    background-color: grey;
    border-radius: 6px;
@@ -125,10 +136,10 @@ label {
    padding: 15px;
    text-align: left;
    visibility: hidden;
-   width: 200px;
+   width: 250px;
 
    /* positoining of tip box */
-   left: 30%;
+   left: 18%;
    margin-left: -60px;
    position: absolute;
    top: 130%;
@@ -146,7 +157,7 @@ label {
    border-width: 10px;
    bottom: 100%;
    content: "";
-   left: 40%;
+   left: 45%;
    margin-left: 5px;
    position: absolute;
    transform: scale(1, -1);
