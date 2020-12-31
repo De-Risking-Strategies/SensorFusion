@@ -1,7 +1,7 @@
 # Sensor Fusion READ ME   
 (C) 2020 - De-Risking Strategies, LLC 
 DRS ML/AI Flask API                                        
-Update 12-23-2020                     
+Update 12-30-2020                     
 ````
 
 ## Starting Sensor Fusion
@@ -77,7 +77,14 @@ NOTE: You may grab latest code from GitHub Remote Repo, which is located here:
 https://github.com/De-Risking-Strategies/SensorFusion.git
 
 ### 2. Checkout Master branch from Git Hub
-To Pull a copy of the release branch, at a command line (with GitHub installed and credentials handy):
+To Pull a copy of the release branch, at a command line (with GitHub installed and credentials handy).  
+
+From the /home/pi directory:
+Type:
+cd SensorFusion
+
+Then you will use the following 'git' commands:
+
 EX: git pull <remote> <branch>
  
 Type: 
