@@ -19,12 +19,12 @@
   <div class='login-reg-top' id='login'>
 
   <section class ="header">
-      <div id=''>
+    <div id=''>
       <img class='logo' src='/static/assets/sensor_fusion_logo_001.png'/>
-        
-          <img class='login-reg-background' src='/static/assets/onboarding_background_001.png'/>
-           
-      </div>
+
+      <!--    <img class='login-reg-background' src='/static/assets/onboarding_background_001.png'/> -->
+
+    </div>
   </section>
   <section class ="login-reg-main">
     <h2>Create New Account</h2>
@@ -45,7 +45,7 @@
       <div class='form-section with-eye pswd-tip'>
 	<div class="no-outline">
           <label for='password'>Password</label>
-          <input id='password' name='password' placeholder='Password' type='password' maxlength="10" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange='return verifyPswd()' required></input>
+          <input id='password' name='password' placeholder='Password' type='password' maxlength="10" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange='return verifyPswd()' required></input>
 
 	</div>
 	<div class='visibility-icon'>
@@ -53,11 +53,12 @@
 	  <label for='pswd-vis'></label>
 	</div>
 	<span class='pswd-tip-text'>
-            <h3>Password should contain the following:</h3>
-              <h3 class="pswd-req">- 1 capital letter</h3>
-              <h3 class="pswd-req">- 1 lowercase letter</h3>
-              <h3 class="pswd-req">- 1 number</h3>
-              <h3 class="pswd-req">- 1 symbol</h3>
+            <h3>Password requirements:</h3>
+              <h3 class="pswd-req">- must be at least 8 characters long</h3>
+              <h3 class="pswd-req">- must contain 1 capital letter</h3>
+              <h3 class="pswd-req">- must contain 1 lowercase letter</h3>
+              <h3 class="pswd-req">- must contain 1 number</h3>
+              <h3 class="pswd-req">- must contain 1 symbol</h3>
 	  </span>
 
       </div>
