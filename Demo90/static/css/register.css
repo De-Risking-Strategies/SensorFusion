@@ -213,6 +213,7 @@ label {
 .term {
    align-items: center;
    display: flex;
+   font-family: 'Roboto-Bold', sans-serif;
    margin: 10px 0;
 }
 
