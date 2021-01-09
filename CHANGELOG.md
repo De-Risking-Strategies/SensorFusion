@@ -6,7 +6,7 @@
 ----
 
 ## January 9, 2021 - Added Model Toggle, checked Full Screen Model Switching, Modified Capture File Name
-- Added a Model Toggle button - far left (replacing the Thermal button) - to switch between currently selected models and resolve the User Experience problems when switchin models.
+- Added a Model Toggle button - far right (replacing the Thermal button) - to switch between currently selected models and resolve the User Experience problems when switchin models.
 NOTE - This changes the way model selection works.  Now you can easily toggle between the two highlighted models, either Pre Loaded OR Custom without switching models, and it remembers the last model you were using for each model type.
  Clicking on either the left pre loaded or right side custom buttons increment the model selected as they did before.  In prior releases, both of these functions were combined, making the user experience difficult.
 - Checked switching models in Full Screen mode.  Browsers do not allow automatically loading in full-screen mode without auser action first.
