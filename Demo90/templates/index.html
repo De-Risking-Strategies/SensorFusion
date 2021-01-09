@@ -50,7 +50,7 @@
              <a onclick="modal1_click('profile');"><img class='standard_button' src='/static/assets/profile_icon_001.png'/></a>
              </td>
           <td style='position:absolute;top:1%;left:96%;text-align: center'>
-             <a onclick="openFullscreen();"><img id='open_fullscreen' class='standard_button' src='/static/assets/icon-navigation-fullscreen_001.png'/></a>
+             <a id='openFullScreenButton' onclick="openFullscreen();"><img id='open_fullscreen' class='standard_button' src='/static/assets/icon-navigation-fullscreen_001.png'/></a>
              <a onclick="closeFullscreen();"><img id='close_fullscreen' class='standard_button' src='/static/assets/icon-navigation-fullscreen_exit_001.png' style="display:none"/></a>
           
           </td>
@@ -63,8 +63,9 @@
   <div id='main'>
    
     <div id='video-canvas'> 
-      
-       <img class='' id='cameraStream' src="{{ url_for('video_feed') }}" width="100%" style='display:block'>
+      <div id='camera1Div'>
+      <img class='videoStream' id='cameraStream' src="{{ url_for('video_feed') }}" width="100%" style='display:block'>
+      </div> 
        <span id='annotateFileStatus' style='position:absolute; top:9%;height: 4%; font-size: 0.5em;color:red'></span>
        <div id='fileSaveProgress' style='display:none'><div id='fileSaveBar'></div></div>
        <a id='annoLink' style ='color: red;position: absolute;top: 13%;font-size: .5em;'></a>
@@ -86,7 +87,7 @@
              
               <td id="controlCellTrain" style='position:absolute;text-align: center'> <br/><a id="trainBtn" class="myBtn"  onclick="postAPI('custom');"><img id='switchCustomImg' class='standard_button'  src='/static/assets/models_icon_001.png'/><br><span id='switchCustomLabel' class="controlBtnLabel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a></td>
               <td id="controlCellSensor" style='position:absolute;text-align: center'> <a id="sensorBtn" class="myBtn" onclick="uploadImages();"><img id='switchTrainImg' class='standard_button' src='/static/assets/train_model_001.png'/><br><span id='trainModelLabel'class="controlBtnLabel">Upload Images</span></a></td>
-              <td id="controlCellThermal" style='position:absolute;text-align: center'> <a id="thermalBtn" class="myBtn" onclick="modal1_click('thermal');"><img class='large_button' src='/static/assets/toggle_switch_off_001.png'/><br><span id='thermalModelLabel' class="controlBtnLabel">Thermal</span></a></td>
+              <td id="controlCellThermal" style='position:absolute;text-align: center'> <a id="thermalBtn" class="myBtn" onclick="postAPI('toggle');"><img id='toggleModelImg' class='large_button' src='/static/assets/toggle_switch_off_001.png'/><br><span id='toggleModelLabel' class="controlBtnLabel">Pre Loaded</span></a></td>
           </tr></table>
         </div>
       </div>

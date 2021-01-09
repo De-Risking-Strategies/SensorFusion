@@ -3,7 +3,7 @@
 # (C) 2020 - De-Risking Strategies, LLC #
 # DRS ML/AI Flask API                   #
 # Authors: Pushkar K / Drew A           #
-# Updated 12-27-2020                    #
+# Updated 01-09-2021  See CHANGELOG.md  #
 #########################################
 import os
 import argparse
@@ -34,7 +34,6 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 #Disable Flask Cache as it interfere
 capture_image_limit = 2000
 
 
-
 #Model Switcher
 with open('/home/pi/SensorFusion/model.obj', 'rb' ) as input:
     run_model = pickle.load(input)
@@ -54,15 +53,13 @@ os.environ['kill_tensorFlow'] = 'False'
 fps_flag = False #showing frames per second is false by default - controlled by 'F' keyboard command
 
 
-
-
 @app.route('/',methods=['GET'])
 def index():
    video_camera_flag = True
    #On a reload
    quit_flag = os.environ.get('quit_flag')
    if quit_flag == 'quit':#
-       cv2.destroyAllWindows()
+       cv2.destroyAllWindows() # not needed!
        try:
            if videostream:
              #videostream.release()
@@ -584,7 +581,9 @@ def gen_frames():
                 except FileExistsError:
                     #dir already exists, so overwrite existing (unless we datestamp)!
                     pass
-                img_name="../Pictures/"+annotate_name+"/"+annotate_name+"sf-frame_{}.jpg".format(img_counter)
+                    
+                #“name”-sf-img-####
+                img_name="../Pictures/"+annotate_name+"/"+annotate_name+"-sf-img-{}.jpg".format(img_counter)
             
                 cv2.namedWindow("Capture Window")
                 cv2.moveWindow("Capture Window", -500, -500)# push it off screen :)
@@ -620,7 +619,7 @@ def gen_frames():
             if quit_flag == 'quit':#
                 os.environ['quit_flag'] = ''
                 print("CV2 Quit " + quit_flag)
-                cv2.destroyAllWindows()
+                #cv2.destroyAllWindows()
                 if videostream:
                     #videostream.release()
                     videostream.stop()
