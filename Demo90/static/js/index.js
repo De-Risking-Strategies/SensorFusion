@@ -7,10 +7,10 @@ var span;
 var modal;
 var modalOpen = false;
 var preLoadedModel = ['Demo90','Model01.Deer', 'Model02.Head', 'Model03.Eyes', 'Model04.Tree'];
-var customModel = ['Custom.04','Check.ID','Custom.01','Custom.02', 'Custom.03'];
-var customModelIndex = 0;
+var customModel = ['Check.ID','Custom.01','Custom.02', 'Custom.03', 'Custom.04'];
+
 var preLoadedModelSelected = 'Demo90';//Default Model
-var preLoadedModelIndex = 0;
+var camera1;
 var modelType = 'preLoaded';
 var fileSavedIndex = 0;//progress basrin data.js sfCallBack
 var sfCommandAnnotate;
@@ -18,6 +18,9 @@ var annotateImages;//Number of images to capture for annotation
 var annotateName;
 var annotateDescription;//Annotation description
 var upLoadFolder;
+
+var customModelIndex = 0;
+var preLoadedModelIndex = 0;
 
 function init(){
 var toggleLabelsBtn = document.getElementById("toggleLabelsBtn");
@@ -54,7 +57,7 @@ window.onclick = function(event) {
 
   var status1 = document.getElementById("annotateFileStatus");
   status1.innerText = "";
-
+ 
  }
 
 document.body.onkeydown = function(e){
@@ -71,42 +74,51 @@ document.body.onkeydown = function(e){
   }
  }
 
-//Load stored Model setting
+//INIT - Load stored Model setting
 modelType = getCookie('modelType');
 
 if (modelType == 'preLoaded'|| modelType ==""){
-  preLoadedModelIndex = getCookie('modelIndex');
-   
-  if(preLoadedModelIndex == ""){
-    setCookie("modelIndex", "0", 30);
-    setCookie("modelType", "preLoaded", 30);
-    setCookie("customModelIndex", "0", 30);//Reset CustomModel Index
-    
+  // preLoadedModelIndex = getCookie('modelIndex');
+  preLoadedModelIndex = parseInt(getCookie('modelIndex'));
+  customModelIndex = parseInt(getCookie('customModelIndex'));
+  setCookie("modelType", "preLoaded", 30);
+  
+  if (isNaN(preLoadedModelIndex)){
     preLoadedModelIndex = 0;
+    setCookie("modelIndex", preLoadedModelIndex, 30);
   }
-    document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
-    document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
+  
+  if (isNaN(customModelIndex)){
+    customModelIndex = 0;
+    setCookie("customModelIndex", customModelIndex, 30);
+  }
+   
+   document.getElementById('switchModelLabel').innerText = preLoadedModelIndex;  
+   document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
+   document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
+   
+   document.getElementById('toggleModelLabel').innerText = 'Pre Loaded';
+   document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_off_001.png'; 
   
 }else{
-   customModelIndex = getCookie('customModelIndex');
+   //customModelIndex = getCookie('customModelIndex');
+   preLoadedModelIndex = parseInt(getCookie('modelIndex'));
+   customModelIndex = parseInt(getCookie('customModelIndex'));
+   setCookie("modelType", "Custom", 30);
+
+   document.getElementById('switchModelLabel').innerText = customModelIndex;
+   document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
+   document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
    
-   if(customModelIndex == ""){
-    setCookie("modelIndex", "0", 30); //Reset PreLoaded Model Index
-    preLoadedModelIndex = 0;
-    setCookie("customModelIndex", customModelIndex, 30);
-    setCookie("modelType", "Custom", 30);
-    
-   }
-    document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
-    document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
+   document.getElementById('toggleModelLabel').innerText = 'Custom';
+   document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_on_001.png'; 
   
 }
-
+//Index value of selected item
 document.getElementById('switchModelLabel').innerText = preLoadedModel[preLoadedModelIndex];
 document.getElementById('switchCustomLabel').innerText = customModel[customModelIndex];
      
 }
-
 
 function toggleCamera(){
   camera1 = document.getElementById("cameraStream");
@@ -154,9 +166,7 @@ function postAPI(command) {
     if (annotateName == "" || annotateImages == "" ){
       alert("No Blank Fields Allowed! Try Again.");
     }else{    
-      command = command+','+annotateName+','+annotateImages;
-      
-    
+      command = command+','+annotateName+','+annotateImages;    
    }
   }             
   if(command == 'labels'){
@@ -185,14 +195,79 @@ function postAPI(command) {
    
     }
    }
+    if(command == 'toggle'){//TOGGLE MODELS - preLoaded or customModel
+      if(modelType == 'preLoaded'|| modelType == ""){// blank = first time load
+        modelType = ('custom');
+        document.getElementById('toggleModelLabel').innerText = 'Custom';
+        document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_on_001.png'; 
+        
+        //CUS: Set Preloaded
+        var currentlySelected = document.getElementById('switchModelLabel').innerHTML;
+        for(var i = 0; i < preLoadedModel.length; i++) {
+          if(preLoadedModel[i] == currentlySelected){
+            currentlySelected = i;
+          }
+        }
+        setCookie('modelIndex', currentlySelected, 30);
+     
+        //CUS: Set Custom
+        var currentlySelectedCustom = document.getElementById('switchCustomLabel').innerHTML;
+        for(var i = 0; i < customModel.length; i++) {
+          if(customModel[i] == currentlySelectedCustom){
+            currentlySelectedCustom = i;
+          }
+        }
+        setCookie('customModelIndex', currentlySelectedCustom, 30);
+     
+        //Render Custom
+        setCookie("modelType", "Custom", 30);
+        command = 'custom,'+ customModel[currentlySelectedCustom];
+        console.log('Toggle to Custom Model: '+ currentlySelectedCustom);
+        document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
+        document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
+     
+        timeRefresh(0);//Reload broswer
+      }else{// PRELOADED
+        modelType = ('preLoaded');
+        document.getElementById('toggleModelLabel').innerText = 'Pre Loaded';
+        document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_off_001.png'; 
+        
+        //PRE: Set Preloaded
+        var currentlySelected = document.getElementById('switchModelLabel').innerHTML;
+        for(var i = 0; i < preLoadedModel.length; i++) {
+          if(preLoadedModel[i] == currentlySelected){
+            currentlySelected = i;
+          }
+        }
+        setCookie('modelIndex', currentlySelected, 30);
+     
+        //PRE: Set Custom
+        var currentlySelectedCustom = document.getElementById('switchCustomLabel').innerHTML;
+        for(var i = 0; i < customModel.length; i++) {
+          if(customModel[i] == currentlySelectedCustom){
+            currentlySelectedCustom = i;
+          }
+        }
+        setCookie('customModelIndex', currentlySelectedCustom, 30);
+      
+        //Render PreLoad
+        setCookie("modelType", "preLoaded", 30);
+        command = 'model,'+ preLoadedModel[currentlySelected];
+        console.log('Switch PreLoaded Model'+ currentlySelected);
+        document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
+        document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
+
+        timeRefresh(0);//Reload broswer
+      }
+    
+    }
    if(command == 'custom'){//CUSTOM MODEL
       //switchCustomImage();
       var len = customModel.length;
-      var customModelIndex = parseInt(getCookie('customModelIndex'));
+      customModelIndex = parseInt(getCookie('customModelIndex'));
       
       if (isNaN(customModelIndex)){customModelIndex = 0};
       
-      //if (customModelIndex == 0){customModelIndex = 1};//Skip 0th
       
       if(customModelIndex >= 5){
         customModelIndex = 0;//Skip over the initial placeholder 'custom'
@@ -211,7 +286,7 @@ function postAPI(command) {
       document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
       
       console.log('Switch Custom Model: '+ customModel[customModelIndex])
-      timeRefresh(3);//Reload broswer
+      timeRefresh(0);//Reload broswer
 
    }
 
@@ -236,12 +311,12 @@ function postAPI(command) {
       document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
      
       console.log('Switch PreLoaded Model'+ preLoadedModel[preLoadedModelIndex])
-      timeRefresh(3);//Reload broswer
+      timeRefresh(0);//Reload broswer
 
    }   
    if(command == 'quit'){
       console.log('quitting')
-      timeRefresh(6);//Reload broswer
+      timeRefresh(0);//Reload broswer
     }
    if(command == 'kill_tesnorFlow'){
       console.log('kill_tesnorFlow')
@@ -280,12 +355,7 @@ function postAPI(command) {
          
        }
     })
- //modalOpen = false;
-    
 }
- function timeRefresh(time) {
-      setTimeout("location.reload(true);", time);
-    }
 
 function switchTrainImageOn(){
     document.getElementById('switchTrainImg').src = 'http://localhost:5000/static/assets/train_model_selected_001.png'; 
@@ -308,30 +378,6 @@ function display_info(){
       infoPic.style.display = "none";
     }
 }
-function setCookie(cname,cvalue,exdays){
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = 'expires'+ d.toGMTString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  
-}
-
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
 
 function close_info(){
    toggleCameraBtnFlag = false;
@@ -339,12 +385,11 @@ function close_info(){
    infoPic.style.display = "none";
    infoCam.style.display= "none";
 }
-function checkDirectoryExists(dir){
+function checkDirectoryExists(dir){//Capture Images
     console.log('Check Directory Exists '+dir)
     checkDir = document.getElementById('aName').value
     
     postAPI('dirCheck,'+checkDir)
-    
 }
 function modal1_click(event){
   modalOpen = true;
@@ -440,7 +485,7 @@ function validateUpload(){
   if(vE == false){
     alert('Invalid Email Address. Please try again');
   }else{
-    //zip it!
+    //zip it - Does not work on R-Pi :(
     //var zip = new JSZip();
     //var photoZip = zip.folder('/home/pi/SensorFusion/Pictures/'+zFolder)
     //photoZip.file(zFolder, desc)// Created a zipped folder with readme
