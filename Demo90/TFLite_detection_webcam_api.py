@@ -3,7 +3,7 @@
 # (C) 2020 - De-Risking Strategies, LLC #
 # DRS ML/AI Flask API                   #
 # Authors: Pushkar K / Drew A           #
-# Updated 01-09-2021  See CHANGELOG.md  #
+# Updated 01-15-2021  See CHANGELOG.md  #
 #########################################
 import os
 import argparse
@@ -21,7 +21,6 @@ import json
 from flask import Flask, jsonify, request, render_template, Response, session, stream_with_context
 from importlib import reload 
 import gc
-import webbrowser
 import pickle
 
 
@@ -67,21 +66,7 @@ def index():
        except:
            pass
    return render_template('index.html' )
-   
-@app.route('/refresh_data')
-def refresh_data():
-
-   #sfCallBack method that sends data to the javascript poller in data.js
-   sfCommand = request.args.get('command')
-   print("sfCallBack: ", sfCommand)
-   if sfCommand == "s": #save file
-        os.environ['fileIndex_flag'] = 0
-        print('Setting FileIndex_Flag')
-        #Get the File index from the save command
-   
-   file_save_id = 1   
-   return str(file_save_id)
-   
+ 
 
 @app.route('/api', methods = ['GET','POST'])
 def api():
@@ -122,6 +107,11 @@ def api():
             filehandler.close()
             os.environ['run_model'] = model_changed_to
             #rerun
+            
+            # reset label and %
+            os.environ['scores_flag'] = 'scores_on'
+            os.environ['labels_flag'] = 'labels_on'
+            
             os.environ['quit_flag'] = 'quit'
 
        
@@ -135,6 +125,11 @@ def api():
             pickle.dump(model_changed_to,filehandler)
             filehandler.close()
             os.environ['run_model'] = model_changed_to
+            
+            # reset label and %
+            os.environ['scores_flag'] = 'scores_on'
+            os.environ['labels_flag'] = 'labels_on'
+        
             #rerun
             os.environ['quit_flag'] = 'quit'
             
@@ -634,7 +629,6 @@ def gen_frames():
             #videostream.release()
             videostream.stop()
             #os.system("pkill chromium")
-        #webbrowser.open('http://localhost:5000', new=0)
             
     except KeyboardInterrupt:
         pass
