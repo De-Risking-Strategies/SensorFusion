@@ -22,9 +22,21 @@ var upLoadFolder;
 var customModelIndex = 0;
 var preLoadedModelIndex = 0;
 
+var fName;
+var fType;
+var fSize;
+var fileObject;
+
+var toggleTFCamera = true;
+
 function init(){
 var toggleLabelsBtn = document.getElementById("toggleLabelsBtn");
 var toggleScoresBtn = document.getElementById("toggleCameraBtn");
+
+ if(toggleTFCamera){//dynamically add tensor flow camera
+  addCamera();
+ }
+
 //Clear Modal on outside click
 document.getElementById("main").addEventListener("click", function() {
  postAPI('restore_tesnorFlow');
@@ -45,7 +57,6 @@ span.onclick = function() {
    modal.style.display = "none";
    modalOpen = false;
     
-    
 }
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -54,15 +65,12 @@ window.onclick = function(event) {
    modal.style.display = "none";
    modalOpen = false;
   }
-
   var status1 = document.getElementById("annotateFileStatus");
   status1.innerText = "";
- 
- }
 
+ }
 document.body.onkeydown = function(e){
  // console.log(String.fromCharCode(e.keyCode)+"-->"+e.keyCode);
-
   if (modalOpen == false){
     if(e.keyCode =='32'){//SPACEBAR
         modal1_click('annotate');
@@ -71,7 +79,7 @@ document.body.onkeydown = function(e){
       }else if(e.keyCode == '70'){
         postAPI('fps')
       } 
-  }
+   }
  }
 
 //INIT - Load stored Model setting
@@ -158,10 +166,6 @@ function postAPI(command) {
       console.log(annotateName);
     annotateImages = document.getElementById('aImages').value;//number of images to capture
         console.log(annotateImages);    
-    
-    //Moved description to Upload
-    //annotateDescription = document.getElementById('aDescription').value;
-    //    console.log(annotateDescription);
         
     if (annotateName == "" || annotateImages == "" ){
       alert("No Blank Fields Allowed! Try Again.");
@@ -192,7 +196,6 @@ function postAPI(command) {
       toggleScores = true;
       command = command + '_on';
       toggleScoresBtn.src = "/static/assets/toggle_switch_on_001.png";
-   
     }
    }
     if(command == 'toggle'){//TOGGLE MODELS - preLoaded or customModel
@@ -256,10 +259,8 @@ function postAPI(command) {
         console.log('Switch PreLoaded Model'+ currentlySelected);
         document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
         document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
-
         timeRefresh(0);//Reload broswer
       }
-    
     }
    if(command == 'custom'){//CUSTOM MODEL
       //switchCustomImage();
@@ -267,7 +268,6 @@ function postAPI(command) {
       customModelIndex = parseInt(getCookie('customModelIndex'));
       
       if (isNaN(customModelIndex)){customModelIndex = 0};
-      
       
       if(customModelIndex >= 5){
         customModelIndex = 0;//Skip over the initial placeholder 'custom'
@@ -287,7 +287,6 @@ function postAPI(command) {
       
       console.log('Switch Custom Model: '+ customModel[customModelIndex])
       timeRefresh(0);//Reload broswer
-
    }
 
    if(command == 'model'){//PRE LOADED MODEL
@@ -315,15 +314,15 @@ function postAPI(command) {
 
    }   
    if(command == 'quit'){
-      console.log('quitting')
+      console.log('quitting');
       timeRefresh(0);//Reload broswer
     }
    if(command == 'kill_tesnorFlow'){
-      console.log('kill_tesnorFlow')
+      console.log('kill_tesnorFlow');
     } 
    if(command == 'restore_tensorFlow'){
 
-      console.log('restore_tensorFlow')
+      console.log('restore_tensorFlow');
     }
   fetch('/api',{
     method: 'post',
@@ -347,7 +346,6 @@ function postAPI(command) {
           status1.innerText = "Your files are saved to: "+link + ".  Click to continue";
           modal.style.display = "none";
         }
-      
        var cd = command.split(",");     
        if (json.status == 403 && cd[0] =='dirCheck'){
          alert('This Name is already Taken, please try again');
@@ -356,29 +354,23 @@ function postAPI(command) {
        }
     })
 }
-
 function switchTrainImageOn(){
     document.getElementById('switchTrainImg').src = 'http://localhost:5000/static/assets/train_model_selected_001.png'; 
     setTimeout(function(){switchTrainImageOff(); }, 3000);
   }
 function switchTrainImageOff(){ 
    document.getElementById('switchTrainImg').src = 'http://localhost:5000/static/assets/train_model_001.png'; 
- 
 }
-
 function display_info(){
   var infoPic = document.getElementById("infoPic");
-  
     if (toggleInfoCanvasFlag == false) {//turn info canvas  on
       toggleInfoCanvasFlag = true
       infoPic.style.display = "block";
-      
-      }else{
+    }else{
       toggleInfoCanvasFlag = false
       infoPic.style.display = "none";
     }
 }
-
 function close_info(){
    toggleCameraBtnFlag = false;
    toggleInfoCanvasFlag = false;
@@ -388,7 +380,6 @@ function close_info(){
 function checkDirectoryExists(dir){//Capture Images
     console.log('Check Directory Exists '+dir)
     checkDir = document.getElementById('aName').value
-    
     postAPI('dirCheck,'+checkDir)
 }
 function modal1_click(event){
@@ -397,14 +388,12 @@ function modal1_click(event){
   var modal1 = document.getElementById("modal_body1");
   var modal2 = document.getElementById("modal_body2");
   var ftr = document.getElementById("modal_footer");
-
   var mTitle= 'Not Implemented Yet'; 
   var mHtml1='<br><strong>Please come back soon!</strong>'; 
   var mHtml2= '<br>';
   var mFooter='Click X to Exit';
 
   if(event =='annotate'){
-    
     postAPI('kill_tesnorFlow');
     mTitle = 'Capture Images for Annotation';
     mHtml1 ='<br><strong>Name, Number and Description</strong><br>';
@@ -419,132 +408,215 @@ function modal1_click(event){
     var row5 = '</table>'
     var row6 = "<br><input type='button' value='Submit' onclick=postAPI('annotate')>";
     mHtml2 = row0+row1+row2+row3+row5+row6;
-    
   }
   
   if(event == 'upload'){
     //Upload Form - values to pass to Server
     postAPI('kill_tesnorFlow');
-    mTitle = 'Upload Annotated Images <br/>UNDER CONSTRUCTION!<br/>Use Main Menu 8 and 9 now!';
-    mHtml1 ='<br><strong>Compress and Upload Annotated Directory</strong><br>';
-       
+    mTitle = 'Capture Images to Annotate<br/><small>Use Main Menu 4 to Label, Menu 8 to Zip your Package!</small>';
+    mHtml1 ='<br><strong>Upload Annotated ZIP files only!</strong><br>';
     var row0 = '<table border="1">';
-    var row1 = '<tr><td id="ic3">Email Address</td><td id="ic4"><input id="emailAddress" type="text" style="width:250px" autofocus onchange="validateEmail();"></input></td></tr>';
-    var row2 = '<tr><td id="ic5">Description</td><td id="ic6"><input id="uDescription" type="text" style="width:300px" onchange=""></input></td></tr>';
-    var row3 = '<tr><td colspan=2>&nbsp;</td></tr>';
-    var row4 = '<tr><td id="ic1">Pick A Directory</td><td id="ic2"><input id="picker" type="file" style="width:350px" onchange="" webkitdirectory></input><br/><span id="dirPicked"></span><br/></td></tr>';
-    var row5 = '</table>'
-    var row6 = "<br><button type='button' value='Upload' onclick=validateUpload();>Upload</a>";
-    mHtml2 = row0+row1+row2+row3+row4+row5+row6;
-    
+    var row1 = '<tr><td id="ic1">Email Address</td><td id="ic4"><input id="emailAddress" name="emailAddress" type="text" style="width:250px" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
+    var row2 = '<tr><td id="ic2">Password</td><td id="ic6"><input id="pwd" type="password" style="width:300px" onchange="validatePassword(this);return false" onblur=""></input></td></tr>';
+    var row3 = '<tr><td id="ic3">Description</td><td id="ic6"><input id="uDescription" type="text" style="width:300px" onchange="validateDescription(this);return false" onblur=""></input></td></tr>';
+    var row4 = '<tr><td id="ic4" colspan=2>&nbsp;</td></tr>';
+    var row5 = '<tr><td id="ic5">Pick A Zip File</td><td id="ic2"><input id="picker" type="file" style="width:350px" onchange="" ></input><br/><span id="filePicked"></span><br/></td></tr>';
+    var row6 = '</table>'
+    var row7 = "<br><button type='button' value='Upload' onclick=validateUpload();>Upload</a>";
+    mHtml2 = row0+row1+row2+row3+row4+row5+row6+row7;
   }
-
-  
   //Draw the Modal
   hdr.innerHTML  = mTitle
   modal1.innerHTML = mHtml1;
   modal2.innerHTML = mHtml2;
   ftr.innerHTML = mFooter;
   modal.style.display = "block";
-  
 
   if(event == 'annotate'){
     document.getElementById("aName").focus;
   }
-  //Directory Picker!
+  //File Picker!
   if(event == 'upload'){
     let picker = document.getElementById('picker');
     picker.addEventListener('change', (event) =>{
-      //let directory = event.target;
       var theFiles = event.target.files;
-      var relativePath = theFiles[0].webkitRelativePath;
-      
-      upLoadFolder = relativePath.split("/");
-      console.log("You Picked "+upLoadFolder[0]);   
-      document.getElementById("dirPicked").innerHTML = ""+upLoadFolder[0];
+      var file = theFiles[0].name;
+      console.log("You Picked "+file);   
+ 
+      //Validate File
+      var input = document.getElementById('picker');
+         fileObject = event.target.files[0];
+         fName = fileObject.name;
+         fType = fileObject.type;
+         fSize = fileObject.size;    
+
+         if (fSize > 2000000000){alert("File Size too large, please try again")}
+         if (fType != 'application/zip'){alert("File must be a ZIP archive, please try again")}
+      document.getElementById("filePicked").innerHTML = fName;
     })
   }
-  
 }
 function uploadImages(){
   switchTrainImageOn();
   modal1_click('upload');
-
 }
 function validateUpload(){
-   var email = document.getElementById("emailAddress").value;
-   var desc =  document.getElementById("uDescription").value;
-   var zFolder = document.getElementById("dirPicked").innerHTML;
-   var vE = false;
-  if (email == "" || desc ==""|| zFolder == ""){
-     alert("Please fill out the form");
-  } else {
-    var vE = validateEmail(email);
-  }
+  var email = document.getElementById("emailAddress").value;
+  var pwd = document.getElementById("pwd").value;
   
-  if(vE == false){
-    alert('Invalid Email Address. Please try again');
-  }else{
-    //zip it - Does not work on R-Pi :(
-    //var zip = new JSZip();
-    //var photoZip = zip.folder('/home/pi/SensorFusion/Pictures/'+zFolder)
-    //photoZip.file(zFolder, desc)// Created a zipped folder with readme
-    /* TO DO
-    zip.file("Description.txt", desc);
-
-    const folder = zip.folder('/home/pi/SensorFusion/Pictures/'+zFolder);
-    folder.file("smile.gif", folder, {base64: true});
-
-    zip.generateAsync({type:"blob"})
-      .then(function(content) {
-      // see FileSaver.js
-        saveAs(content, zFolder +".zip");
-        alert(zFolder+' File is Zipped !');
-    
-      }); 
-    */
-    
-    alert('This is still under construction, please use the Main Menu for now!');
-  }
-  
-}
-function validateEmail(email) {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-}
-
-
-function putUpload(){
-  alert('hey');//to do
-}
- /*to do
-  var input = document.createElement('input');
-  input.type = 'file';
-  
-  input.click();
+  var desc =  document.getElementById("uDescription").value;
+  var zFile= document.getElementById("filePicked").innerHTML;
+  var vE = false;
   var file;
-  var fName
-  var fType
-  var fSize
-
-  input.onchange = e =>{
-   file = e.target.files[0];
-   fName = file.name;
-   fType = file.type;
-   fSize = file.size;    
-
-   //document.getElementById('fileSelected').innerHTML = fName +":"+ fSize +":"+ fType ||'no file selected';
-   
-  switchTrainImageOff();
-
-  if (fSize > 90000000){alert("File Size too large, please try again")}
-  
-  if (fType != 'application/zip'){alert("File must be a ZIP archive, please try again")
+    
+  if (email == "" ){
+     alert("Please fill out a valid email address");
+  } 
+  if (pwd == "" ){
+     alert("Password Required!");
+  } 
+  if (desc ==""){
+     alert("Please fill out a description");
   }
- }
- */
- 
+  if (zFile == ""){
+     alert("Please select a Zip File to upload");
+  }
 
+    //Confirm Upload
+    var msg ='Confirm Upload: File: ' + fName +'\n';
+    msg += 'User: ' + email +'\n';
+    msg += 'Pwd: Validated\n';
+    msg += 'Description: ' + desc +'\n';
+    var txt;
+    
+    var r = confirm(msg);
+    if (r == true){
+      txt = 'Uploading Sensor Fusion Package';
+      modal.style.display = "none";
+      modalOpen = false;
+      //Login Upload
+      loginUpload(pwd, fName, email, desc);
+    }else{
+      txt = 'Cancelled Uploading Sensor Fusion Package';
+    }
+}
+function loginUpload(password, file, email, desc){
+  //1. Login and get Token
+  //EX: curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"some@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login'                                                         
+  const postLoginUrl = 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login';
+  var body ='{"user_email":"'+email+'","password":"'+password+'"}';
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", postLoginUrl, true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.onreadystatechange = function(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200){
+      var token = this.response;
+      console.log('Login Response: '+ token);
+      getUploadURL(token, file, desc);
+    }
+    if (this.readyState === XMLHttpRequest.DONE && this.status != 200){
+      var r = this.response;
+      var msg = 'Login error, please try again: '+ r;
+      console.log(msg);
+      alert(msg);
+    }
+  }
+  xhr.send(body);
+}
+async function getUploadURL(token, file, desc){
+  //2. Get Signed URL  for Upload with Token
+  //EX: curl -v -X POST -H "Content-Type: application/json" -d '{"token": “<token>“, "desc": "This is my description."}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/get_upload_url'
+  const getUploadURL = 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/get_upload_url';
+  var t = JSON.parse(token);
+  var tok = t.token;
+  
+  var body ='{"token":"'+tok+'","desc":"'+desc+'"}';
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open("POST", getUploadURL, true);
+  xhr2.setRequestHeader('Content-Type','application/json');
+  xhr2.onreadystatechange = function(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200){
+      var upLoadURL = this.response;
+      console.log('Get Upload URL Response: '+ upLoadURL);
+      putUpload(upLoadURL, file);
+    }
+    if (this.readyState === XMLHttpRequest.DONE && this.status != 200){
+      var r = this.response;
+      var msg = 'Get Upload URL error, please try again: '+ r;
+      console.log(msg);
+      alert(msg);
+    }
+  }
+  xhr2.send(body);
+}
+function putUpload(upLoadURL, file){
+  //3. Upload zip file
+  //curl -i --request PUT --upload-file "<file>" "<upLoadURL>"
+  console.log('Uploading File: '+file);
+  var putSourcePath = "/home/pi/SensorFusion/Pictures/"+file;
+  var data = {};
+  data.file = putSourcePath;
+  var json = JSON.stringify(data);
+  var pBar = document.getElementById('progressBar');
+  var pBarLabel = document.getElementById('pbarLabel');
+  
+  var xhr3 = new XMLHttpRequest();
+  xhr3.upload.addEventListener("progress", function(e){
+    if(e.lengthComputable){
+      var percent =  parseInt((e.loaded / e.total)*100);
+      console.log("Uploading File: "+percent);
+      pBar.style.display = 'block';
+      pBarLabel.innerText = file +' uploaded: '+ (percent +1)+ '%';
+      pBar.style.background = "linear-gradient(to right, #57c2c1 " + percent + "%, #4a4a52 " + percent + "%)";
+      //pBar.style.width = percent
+      postAPI('restore_tesnorFlow');
+    }
+  });
+  xhr3.upload.addEventListener("load", function(e){
+      pBar.style.display = 'none';
+      msg = 'Your file:  '+file+' was successfully Uploded!'
+      console.log(msg);
+      alert(msg);
+      postAPI('restore_tesnorFlow');
+  });
+  
+  xhr3.open("PUT", upLoadURL, true);
+  //xhr3.setRequestHeader('Content-Type','application/json');
+  xhr3.overrideMimeType(file.type);
+  xhr3.onreadystatechange = function(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200){
+      var res = this.response;
+      console.log('File Upload Response: '+ res);
+      
+    }
+    if (this.readyState === XMLHttpRequest.DONE && this.status != 200){
+      var r = this.response;
+      var msg = 'Upload File error, please try again: '+ r;
+      console.log(msg);
+      alert(msg);
+    }
+  }
+  xhr3.send(fileObject);
+
+}
+
+
+function addCamera(){
+  //Dynamic Version of: <img class='videoStream' id='cameraStream' src="{{ url_for('video_feed') }}" width="100%" style='display:block'>-->
+  var videoStream = document.createElement('img');
+  videoStream.class = 'videoStream';
+  videoStream.id ="cameraStream"; 
+  videoStream.src ="/video_feed";
+  videoStream.style.width = "100%";
+  videoStream.style.display = "block";
+  document.getElementById('camera1Div').appendChild(videoStream);
+  
+  //For debugging, comment the lkine above and uncomment the lines below
+  //var nullStream = document.createElement('img');
+  //nullStream.style.display = "none";
+  //document.getElementById('camera1Div').appendChild(nullStream);//for debugging
+   
+}
 
 
 

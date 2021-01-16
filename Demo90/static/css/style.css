@@ -12,7 +12,7 @@ body{
 body {
    margin: 0;
    padding: 0;
-   background: #000;
+   background: gray;
    font-family: 'Roboto', sans-serif;
    font-size: 48px;
    height:100%;
@@ -27,7 +27,7 @@ body {
    display:grid;
    position:absolute;
    grid-template-columns: repeat(3,1fr);
-   grid-template-rows: 8% 83% 8%;
+   grid-template-rows: 8% 81% 11%;
    background:lightgray;
    width: 100vw;
    height:100vh;
@@ -36,19 +36,22 @@ body {
 
 }
 .header{
-   border-radius:5px;
+   /*border-radius:5px;*/
+   border-top-left-radius:5px;
+   border-top-right-radius:5px;
+   
    grid-column:1/4;
    grid-row-start:1;
    grid-row-end:2;
    padding: 15px 20px;
-   border-color: #e7e7e7;
+   border-color: #212121;
    
    height:100%;
-   background-color: #444444dd;
+   background-color: #212121;
 }
 .main{
 
-  border-radius:5px;
+  /*border-radius:5px;*/
    grid-column:1/4;
    grid-row-start:2;
    grid-row-end:3;
@@ -62,16 +65,18 @@ body {
    background-size: cover;
 }
 .footer{
-
-   border-radius:5px;
+   border-bottom-left-radius:5px;
+   border-bottom-right-radius:5px;
+   
    grid-column:1/4;
    grid-row-start:3;
    grid-row-end:4;
-   padding: 6px 2px;
+   padding: 2px 2px;
    border-color: #e7e7e7;
    
    height:100%;
-   background-image:url("../assets/bottom_nav_bar_001.png");
+   background-color:#212121;
+   /*background-image:url("../assets/bottom_nav_bar_001.png");*/
 }
 #sensor_toggle_title{
     font-size: 1.7em;
@@ -122,13 +127,21 @@ input[type="range"] {
    right: -29%;
 }
 
-#bottom-controls{
-    margin-left:20%;
-    height: 50px;
+#bottom-controls{   
+    height:9%;
     margin: 8px;
     position: absolute;
-    bottom: 2%;
+    bottom:calc(100% - 95.5%);
     width: 100%
+    
+    /*
+    height: 0%;
+    margin: 1% 1% -1% 1%;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    * /
 }
 .login-reg-background{
    position:absolute;
@@ -156,15 +169,25 @@ input[type="range"] {
 .login-reg-foot-text{
    font-size:.2em
 }
+.botToolBarTable{
+    /*border: 4px solid gray;*/
+    height: 8%;
+    max-height: 8%;
+    width: 100%;
+    /*position: fixed;
+    left: 1%;
+    bottom: 3%;
+    top:89vh;*/
+}
 
 /* The Modal (background) */
 .modal {
   display: none; 
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  left: 33%;
-  top: 17%;
-  width: 33%; 
+  left: 28%;
+  top: 9%;
+  width: 37%; 
   height: 20%; 
   overflow: none; 
   font-size: 0.4em;
@@ -237,31 +260,39 @@ input[type="range"] {
 }
 
 #controlCellScore{
-bottom:-46%;
+/*bottom:-46%;*/
+bottom:calc(100% - 160%);
 left:3%;
 }
 #controlCellLabel{
-bottom:-46%;
+/*bottom:-46%;*/
+bottom:calc(100% - 160%);
 left:14%;
 }
 #controlCellModel{
-bottom:-45%;
+/*bottom:-45%;*/
+bottom:calc(100% - 160%);
 left:25%;
 }
 #controlCellSpaceBar{
-bottom:-26%;
-left:35%
+/*bottom:-26%;*/
+bottom:calc(100% - 130%);
+left:37.5%;
+
 }
 #controlCellTrain{
-bottom:-52%;
+/*bottom:-52%;*/
+bottom:calc(100% - 160%);
 left:66%;
 }
 #controlCellSensor{
-bottom:-52%;
+/*bottom:-52%;*/
+bottom:calc(100% - 160%);
 left:75.5%;
 }
 #controlCellThermal{
-bottom:-46%;
+/*bottom:-46%;*/
+bottom:calc(100% - 160%);
 left:89%;
 }
 
@@ -317,6 +348,9 @@ left:89%;
     overflow: none;
     font-size: 0.25em;
  }
+#bottom-controls{
+   bottom:2%;
+}
 #controlCellScore{
 bottom:-46%;
 left:3%;
@@ -339,14 +373,13 @@ left:66%;
 }
 #controlCellSensor{
 bottom:-40%;
-left:78.5%;
+left:75.5%;
 }
 #controlCellThermal{
 bottom:-46%;
 left:89%;
 } 
- 
-}
+
 
 @media only screen and (max-width: 1024px) and (min-width: 801px)  {
 .standard_button {
@@ -366,16 +399,41 @@ left:89%;
     font-size: 1.4em;
     left: 128px;
 } 
- 
+
 .modal{
    width:42%;
 }
 }
 
+@media only screen and (max-width: 1280px) and (min-width: 1024px)  {
+.standard_button {
+    height: 38px;
+    width: 38px;
 
+}
+.large_button {
+    width: 72px;
+    height: 39px;
+}    
+    
+.checkid_button{
+   width:69%!important;
+ } 
+#sensor_toggle_title {
+    font-size: 1.4em;
+    left: 128px;
+} 
+#bottom-controls{
+   bottom:6%;
+}
+
+.modal{
+   width:42%;
+}
+}
 @media only screen and (max-width: 1920px)and (min-width: 1025px)  {
 .checkid_button{
-   width:100%!important;
+   width:95%!important;
  } 
  
 }

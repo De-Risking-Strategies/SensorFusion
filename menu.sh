@@ -18,7 +18,6 @@ show_menu(){
     printf "${menu}**${number} 6)${menu} Run CheckID no TPU ${normal}\n"
     printf "${menu}**${number} 7)${menu} Run PoseEstimate ${normal}\n" 
     printf "${menu}**${number} 8)${menu} Zip Annotated Directory ${normal}\n"   
-    printf "${menu}**${number} 9)${menu} Upload Zip File ${normal}\n" 
     printf "${menu}**===================================================${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
