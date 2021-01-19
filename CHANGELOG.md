@@ -1,9 +1,41 @@
 ### Sensor Fusion MIT License	 CHANGELOG  
-(C) 2020 - De-Risking Strategies, LLC 
+(C) 2020 -2021 - De-Risking Strategies, LLC 
 ----
 
 ## SENSOR FUSION CHANGELOG                     
 ----
+
+
+## January 15, 2021 - Upload to Server with Login and Token, CSS fixups, Validation and Error handling, Progress Bar on Upload, Fixed Score%-Label Model switch bug
+- Added full Zip file login with token and upload with description to secure Signed URL
+- Incorporated a Progress Bar to show status whil uploading large files in the background
+- Updated the CSS to be more responsive to different screen sizes
+- Fixed Pushkar's bug for the Scores (%) and Labels toggle setting when switching models.  Now these settings will default back to enabeld when switching models
+- Added lots of validation in the Upload dialog for file name, location, size, email, description, and password
+- Changed  TensorFlow Camera 1 from static HTML to dynamic creation in the DOM via Javascript (better for future multi-camera implementations)
+
+>NOTE 1 - Uploading files requires a registered user.  While waiting for the registration integration, we can add users via command line
+
+>NOTE 2 - In this update we removed Menu 9 from Main Menu - No longer functional with Login now required to upload
+
+>NOTE 3 - The current Upload images allows you to login before the upload (if you are a registered user).  Later when we integrate the full Login, this won't be neccssary.
+
+## January 9, 2021 - Added Model Toggle, checked Full Screen Model Switching, Modified Capture File Name
+- Added a Model Toggle button - far right (replacing the Thermal button) - to switch between currently selected models and resolve the User Experience problems when switchin models.
+NOTE - This changes the way model selection works.  Now you can easily toggle between the two highlighted models, either Pre Loaded OR Custom without switching models, and it remembers the last model you were using for each model type.
+ Clicking on either the left pre loaded or right side custom buttons increment the model selected as they did before.  In prior releases, both of these functions were combined, making the user experience difficult.
+- Checked switching models in Full Screen mode.  Browsers do not allow automatically loading in full-screen mode without auser action first.
+- Modified the Captured File Name to “name”-sf-img-####.jpg
+
+
+## January 7, 2021 - Main Menu Zip Files and Upload Files to Back End added 
+NOTE - For details on Upload Download to DRS back-end, pleasee see 'DRS-AWS-Administrator-Access-Upload-Download.doc'
+- Menu 8 - Zip Annotated directory - zipdir.sh added
+- Menu 9 - Upload Zip File: Email Address, Zipped File and Description with spaces and validation
+- Capture Imags - Added a visible file count when saving images, and MOVED Description to Upload Images 
+- Fixed spacebar and 'f' key bugs in forms (you can now include spaces in fields)
+- Upload Images - Added capabilities to begin Upload from SF (not finished yet)
+
 ## December 31 - Removed static label from Custom to fix switching issue
 - Moved Custom/Preloaded image switching logic to match
 
@@ -88,7 +120,7 @@
 - Added graphics, toolbars, widgets, sliding sidnavigation left and right, modal dialog
 - Inter layer communication end-point exposed Flask -> Javascript
 
-## November 39, 2020 - Initial Release on Flask
+## November 29, 2020 - Initial Release on Flask
 - Initial checkin to Github
 - Incorporated Flask API into Demo90 TFLite environment
 - Initial JS layout, graphics and local tech stack created on top of Demo90 environment
