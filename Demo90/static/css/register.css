@@ -17,6 +17,9 @@ body {
    /*background-image: src() */
    background-size: cover;
    /*height: 100%;*/
+
+   /* for debugging*/
+   overflow: visible;
 }
 
 button:focus {

@@ -29,7 +29,7 @@
   <section class ="login-reg-main">
     <h2>Create New Account</h2>
     <div class="form-and-msgs">
-    <form action="{{ url_for('register') }}" method='POST'>
+    <form onsubmit='testSubmit()'  action="{{ url_for('register') }}" method='POST'>
       <div class='form-section'>
         <label for='firstName'>First</label>
         <input id='firstName' name='first' placeholder='First' maxlength='128' autofocus></input>
