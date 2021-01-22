@@ -213,6 +213,11 @@ def login():
 @app.route('/register', methods=['GET','POST']) 
 def register():
     embedVar='Register'
+    #return render_template('register.html',embed=embedVar )
+
+@app.route('/register1', methods=['GET','POST']) 
+def register():
+    embedVar='Register'
     #print(get_all_users)
 
     isInvalid = 0  # used to flash error messages if anything was entered incorrectly

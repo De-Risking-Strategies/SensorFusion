@@ -29,8 +29,9 @@
   <section class ="login-reg-main">
     <h2>Create New Account</h2>
     <div class="form-and-msgs">
-    <form onsubmit='return validateInputs()'  action="{{ url_for('register') }}" method='POST'>
+    <form onsubmit='sendRegReq()'  action="{{ url_for('register') }}" method='POST'>
 	    <!--
+    <form onsubmit='return validateInputs()'  action="{{ url_for('register') }}" method='POST'>
     <form onsubmit='testSubmit()' onChange='validateReg()'  action="{{ url_for('register') }}" method='POST'>
 	    -->
       <div class='form-section'>
