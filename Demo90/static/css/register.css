@@ -19,7 +19,7 @@ body {
    /*height: 100%;*/
 
    /* for debugging*/
-   overflow: visible;
+   /*overflow: visible;*/
 }
 
 button:focus {
@@ -94,6 +94,10 @@ label {
 .form-and-msgs {
    display: flex;
    font-size: 14px;
+}
+
+.header {
+   height: auto;
 }
 
 .login-reg-main {

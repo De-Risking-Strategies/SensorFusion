@@ -29,10 +29,13 @@
   <section class ="login-reg-main">
     <h2>Create New Account</h2>
     <div class="form-and-msgs">
-    <form onsubmit='testSubmit()'  action="{{ url_for('register') }}" method='POST'>
+    <form onsubmit='return validateInputs()'  action="{{ url_for('register') }}" method='POST'>
+	    <!--
+    <form onsubmit='testSubmit()' onChange='validateReg()'  action="{{ url_for('register') }}" method='POST'>
+	    -->
       <div class='form-section'>
         <label for='firstName'>First</label>
-        <input id='firstName' name='first' placeholder='First' maxlength='128' autofocus></input>
+        <input id='firstName' name='first' placeholder='First' maxlength='128' onautofocus></input>
       </div>
       <div class='form-section'>
         <label for='lastName'>Last</label>
@@ -45,8 +48,10 @@
       <div class='form-section with-eye pswd-tip'>
 	<div class="no-outline">
           <label for='password'>Password</label>
+          <input id='password' name='password' placeholder='Password' type='password' minlength="8" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange='return checkPwMatch()' required></input>
+<!--
           <input id='password' name='password' placeholder='Password' type='password' maxlength="10" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange='return verifyPswd()' required></input>
-
+-->
 	</div>
 	<div class='visibility-icon'>
 	  <input id='pswd-vis' type='checkbox' onclick='showPassword1()'></input>
@@ -65,7 +70,10 @@
       <div class='form-section with-eye'>
 	<div class="no-outline">
           <label for='re-enterPassword'>Re-Enter Password</label>
+          <input id='re-enterPassword' name='re-enterPassword' placeholder='Re-Enter Password' type='password' onChange='return checkPwMatch()' required></input>
+<!--
           <input id='re-enterPassword' name='re-enterPassword' placeholder='Re-Enter Password' type='password' onChange='return verifyPswd()' required></input>
+-->
 	</div>
 	<div class='visibility-icon'>
 	  <input id='confirm-pswd-vis' type='checkbox' onclick='showPassword2()'></input>

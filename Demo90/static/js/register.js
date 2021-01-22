@@ -1,3 +1,102 @@
+/* Check length of first name; ensure it is not blank */
+/* Check length of email; ensure it is not blank; ensure it is in the right format */
+function validateInputs() {
+  // if validations pass, send the request to AWS
+  var first = document.getElementById("firstName").value;
+  var email = document.getElementById("email").value;
+  var subBtn = document.getElementById("submit-btn");
+  var alerts = "";
+
+  //print("first name: " + firstName);
+  console.log("validate function: no first name available")
+  if (first === "") {
+    // subBtn.disabled = false;   // can't do this on submit; must be attached to specific input
+    //alert("Please enter first name");  // triggers the 'print' window to pop up for some reason
+    console.log("Please enter first name");
+    alerts += "Please enter first name\n";
+    //return false;
+  }
+  else {
+  //else if (first.length < 4 || first.length > 128) {
+    // else if name does have something in it, make sure it's not too long and not too short; make 
+	  // these separate if statements later
+
+    //subBtn.disabled = false;
+    //alert("First name is either too long or too short. Must be between 4 and 128 characters");
+    //alerts += "First name is either too long or too short. Must be between 4 and 128 characters\n";
+
+    if (first.length < 4) {
+      console.log("First name is too short");
+      alerts += "First name is too short\n";
+    }
+    if (first.length > 128) {
+      console.log("Last name is too long");
+      alerts += "Last name is too long\n";
+    }
+
+  }
+  if (email == "") {
+    // we should never get here between of the built in check for email inputs
+
+    //subBtn.disabled = false;
+    //alert("Please enter an email address");
+    console.log("Please enter an email address");
+    alerts += "Please enter an email address\n";
+  }
+  else {
+//    let re = /.+@.+\.com /;
+//    if (!re.exec(email)) {
+//      alerts += "Please use a valid email\n";
+//    }
+    if (email.length < 8) {
+      console.log("Email is too short");
+      alerts += "Email is too short\n";
+    }
+    if (email.length > 255) {
+      console.log("Email is too long");
+      alerts += "Email is too long\n";
+    }
+  }
+  //  // this should be switched with the one inside of it; check proper format first, then length
+//  if (email.length < 8 || email.length > 255) {
+//    subBtn.disabled = false;
+//    alert("Email is either too long or too short. Must be between 4 and 128 characters");
+//  }
+//  else {
+//    let re = /.+@.+\.com /;
+//
+//    // if email doesn't match the required format, send an alert
+//    if (!re.exec(email)) {
+//      
+//      subBtn.disabled = false;
+//      alert("Please use a valid email");
+//    }
+//    else {
+//      print("Email is valid")
+//      subBtn.disabled = true;
+//    }
+//  }
+  if (alerts != "") {
+    alert(alerts)
+    return false;
+  }
+  //subBtn.disabled = false;
+  return true;
+}
+
+function checkFirst() {
+  var first = document.getElementById("firstName");
+  var subBtn = document.getElementById("submit-btn");
+  
+  if (first == "") {
+    // subBtn.disabled = false;   // can't do this on submit; must be attached to specific input
+    alert("Please enter first name");
+  }
+
+}
+
+/* Password Visibility (Icons) */
+
 function showPassword1() {
   var x = document.getElementById("password");
   if (x.type === "password") {
@@ -16,6 +115,7 @@ function showPassword2() {
   }
 }
 
+/* Check if passwords match and disable button */
 
 function checkPwMatch() {
   var pw1 = document.getElementById("password");
@@ -23,15 +123,16 @@ function checkPwMatch() {
   var subBtn = document.getElementById("submit-btn");
   if (pw1.value === pw2.value) {
     // return message saying passwords match
-    //subBtn.disabled = true;
+    subBtn.disabled = false;
     return true;
   } else {
     // return message saying don't passwords match
-    //subBtn.disabled = false;
+    subBtn.disabled = true;
     return false;
   }
 }
 
+/* Check if passwords match */ 
 function verifyPswd() {
   var pw1 = document.getElementById("password");
   var pw2 = document.getElementById("re-enterPassword");
@@ -48,8 +149,9 @@ function verifyPswd() {
     return false;
   }
 }
-
-function registerUpload(first, last, email, password){
+//
+//
+//
 
 /*  - what if I listen for an event to occur (such as the success message popping up) before actually sending this?
         - if success message (green), then send; if error message (red), then don't send
@@ -70,9 +172,17 @@ function registerUpload(first, last, email, password){
   //Login and get Token
   //EX: curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"some@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login'
 
+
+	
+
+function registerUpload(first, last, email, password){
   // curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"your@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/register'
+
+
   const postRegisterUrl = 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/register';
   /*var body = {
+    first_name:first,
+    last_name:last,
     user_email:email,
     password: password
   }*/
