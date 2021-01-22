@@ -121,13 +121,40 @@ function checkPwMatch() {
   var pw1 = document.getElementById("password");
   var pw2 = document.getElementById("re-enterPassword");
   var subBtn = document.getElementById("submit-btn");
+  var warningMsgs = document.querySelector("div.msg-section > div.msgs");
   if (pw1.value === pw2.value) {
     // return message saying passwords match
+    // 
     subBtn.disabled = false;
+//    if (warningMsgs.innerHTML.length == 0) {
+//      warningMsgs.innerHTML = "";
+//    }
+    //warningMsgs.style.display = "none";
+    warningMsgs.querySelector(".warning-msgs").remove();
     return true;
   } else {
     // return message saying don't passwords match
     subBtn.disabled = true;
+    // insert a warning message
+    /*
+    var row1 = "<div class='warning-msgs'>";
+    var row2 = "<h3>Passwords do not match</h3>";
+    var row3 = "</div>";
+    mHTML = row1+row2+row3; */
+    mHTML = "Passwords do not match";
+
+    if (warningMsgs.querySelector(".warning-msgs") == null) {
+      var msgDiv = document.createElement("DIV");
+      var msgH3 = document.createElement("H3");
+      //msgH3.innerText = document.createTextNode(mHTML);
+      msgH3.appendChild(document.createTextNode(mHTML));
+      msgDiv.appendChild(msgH3);
+      msgDiv.classList.add('warning-msgs');
+      warningMsgs.appendChild(msgDiv);
+      warningMsgs.style.display = "block";
+    }
+    //else {}
+    console.log("passwords do not match!")
     return false;
   }
 }
@@ -140,7 +167,7 @@ function verifyPswd() {
   //console.log(pw2.value);
   if (pw1.value === pw2.value) {
     // return message saying passwords match
-    console.log("passwords match!")
+    console.log("passwords match!");
     //console.log(pw1.value === pw2.value)
     return true;
   } else {

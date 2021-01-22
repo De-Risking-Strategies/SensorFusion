@@ -243,17 +243,6 @@ def register():
        #   - there are people with first and last names that are shorter than 4 characters, 
        #     so should we decrease the lower bound?
 
-       # validate all user inputs
-       if len(first_name) < 4 or len(first_name) > 128: 
-           #print('First name either too long or too short')
-           #input_validations.append(0)
-           flash('First name is either too long or too short')
-           isInvalid = 1
-           
-       if len(last_name) < 4 or len(last_name) > 128: 
-           #print('Last_name either too long or too short')
-           flash('Last name is either too long or too short')
-           isInvalid = 1
 
        # email_address should be between 8 and 255 characters and should not already exist in the table
        if len(email_address) < 8 or len(email_address) > 255: 
