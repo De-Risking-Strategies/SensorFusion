@@ -207,105 +207,68 @@ def api():
 
 @app.route('/login') 
 def login():
-   embedVar='Login'
-   return render_template('login.html',embed=embedVar )
+    embedVar='Login'
+    return render_template('login.html',embed=embedVar )
 
 @app.route('/register', methods=['GET','POST']) 
 def register():
-   embedVar='Register'
-   #print(get_all_users)
+    embedVar='Register'
+    #print(get_all_users)
 
-   isInvalid = 0  # used to flash error messages if anything was entered incorrectly
-   redirect = 0  # used to tell wether page was freshly loaded or redirected
+    isInvalid = 0  # used to flash error messages if anything was entered incorrectly
+    redirect = 0  # used to tell whether page was freshly loaded or redirected
 
-   # if post request, check that user is valid and doesn't already exist in database
-   if request.method == "POST":
-       data = request.form.to_dict()
-       first_name = data["first"]
-       last_name = data["last"]
-       email_address = data["email"]
-       password = data["password"]
-       reEnterPassword = data["re-enterPassword"]
-       agree_term = data['agree-term']
-       privacy_term = data['privacy-term']
-       age_term = data['age-term']
+    # if post request, check that user is valid and doesn't already exist in database
+    if request.method == "POST":
+        data = request.form.to_dict()
+        first_name = data["first"]
+        last_name = data["last"]
+        email_address = data["email"]
+        #password = data["password"]
+        #reEnterPassword = data["re-enterPassword"]
+        #agree_term = data['agree-term']
+        #privacy_term = data['privacy-term']
+        #age_term = data['age-term']
 
-       # debugging
-       #for key, value in data.items():
-           #print("key: {0}, value: {1}".format(key, value))
+        # debugging
+        #for key, value in data.items():
+            #print("key: {0}, value: {1}".format(key, value))
 
-       # validation checks
-       #   - is it possible to send the values the user gave back so that they don't have to fill 
-       #     in all the fields again?
+            # all user information is valid; add to database
+            #   - unique email addresses
+        if isInvalid:
+            # send user back to registration page to enter correct email
+            return render_template('register.html',embed=embedVar, isInvalid=isInvalid);
+        else:
+            all_users = get_all_users()
+            print(all_users)
+            for user in all_users:
 
-       # both first and last name need to be between 4 and 128 characters
-       #   - should we have alpha numeric checks for names?
-       #   - there are people with first and last names that are shorter than 4 characters, 
-       #     so should we decrease the lower bound?
+                # if an email already exists in database, return error message
+                if user[3].strip('"\'') == email_address:
+                    flash('An account with this email address already exists. Please try a different one.')
+                    isInvalid = 1
+                    return render_template('register.html',embed=embedVar, isInvalid=isInvalid )
 
+            # else, add new user to database and return success message
 
-       # email_address should be between 8 and 255 characters and should not already exist in the table
-       if len(email_address) < 8 or len(email_address) > 255: 
-           # check to make sure this email does not already exist in the database
-           #print('Email address either too long or too short')
-           flash('Email address is either too long or too short')
-           isInvalid = 1
+            # create hash of password and add that to table
+            #pswd_hash = sha256(password.encode("utf-8")).hexdigest()
 
-       # password should be at least 8 characters long, encrypted, and should have the specified requirements
-       if len(password) < 8:
-           # encrypt password to be saved in database
-           #print('Password too short')
-           flash('Password is too short')
-           isInvalid = 1
-       # check for other password validation requirements?
+            # add user to database; passwords currently not being saved, but are being hashed
+            #result = add_user(first_name, last_name, email_address, 5) # eventually save pswd_hash
+            redirect = 1
+            flash('Congratulations! You have successfully registered! Please go to the login page to sign in!')
+            print(all_users)
 
-       # re-enterPassword should match password
-       if reEnterPassword != password: 
-           #print('Passwords do not match')
-           flash('Your passwords do not match')
-           isInvalid = 1
+            #debugging
+            #for key, value in request.form.items():
+                #flash(value)
 
-       # check if terms of service were accepted
-       if agree_term == None or privacy_term == None or age_term == None:
-           #print('Not all terms were accepted')
-           flash('Not all terms were accepted')
-           isInvalid = 1
-
-       if isInvalid == 1:
-           # send user back to registartion form to enter their information correctly
-           return render_template('register.html', embed=embedVar, isInvalid=isInvalid)
-       else:
-           # all user information is valid; add to database
-           #   - unique email addresses
-
-           all_users = get_all_users()
-           #print(all_users)
-           for user in all_users:
-
-               # if an email already exists in database, return error message
-               if user[3].strip('"\'') == email_address:
-                   flash('An account with this email address already exists. Please try a different one.')
-                   isInvalid = 1
-                   return render_template('register.html',embed=embedVar, isInvalid=isInvalid )
-
-           # else, add new user to database and return success message
-
-           # create hash of password and add that to table
-           pswd_hash = sha256(password.encode("utf-8")).hexdigest()
-
-           # add user to database; passwords currently not being saved, but are being hashed
-           #result = add_user(first_name, last_name, email_address, 5) # eventually save pswd_hash
-           redirect = 1
-           flash('Congratulations! You have successfully registered! Please go to the login page to sign in!')
-           print(all_users)
-
-           #debugging
-           #for key, value in request.form.items():
-               #flash(value)
-
-   # this will need to redirect to a different location, I think; the login page maybe?
-   return render_template('register.html',embed=embedVar, isInvalid=isInvalid, redirect=redirect)
-   #return render_template('register.html',embed=embedVar )
+    # this will need to redirect to a different location, I think; the login page maybe?
+    return render_template('register.html',embed=embedVar, isInvalid=isInvalid, redirect=redirect)
+    #return render_template('register.html',embed=embedVar, redirect=redirect)
+    #return render_template('register.html',embed=embedVar )
   
 @app.route('/video_feed')
 def video_feed():
