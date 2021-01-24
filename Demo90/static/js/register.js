@@ -88,7 +88,7 @@ function checkPwMatch() {
 
 
 	
-
+//function validate() {// if validInputs returns true, send the registerUser request;ƒ otherwise, ???}
 
 
 function validateInputs() {
@@ -180,7 +180,7 @@ function validateInputs() {
 
 
 
-function registerUser1(first, last, email, password){
+function registerUser(first, last, email, password){
   // curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"your@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/register'
 
 
@@ -229,7 +229,7 @@ function registerUser1(first, last, email, password){
   xhr.send(body);
 }
 
-function registerUser(first, last, email, password) {
+function registerUser1(first, last, email, password) {
   const postRegisterUrl = 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/register';
 
   var body = '{"first_name":"'+first+'", "last_name":"'+last+'", "user_email":"'+email+'","password":"'+password+'"}';
@@ -255,7 +255,9 @@ function sendRegReq() {
     // verify the email does not already exist?
     // send POST request
     registerUser(first, last, email, password);
+    return true
   }
+  return false
   //return isValid;
 }
 
