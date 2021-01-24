@@ -213,67 +213,7 @@ def login():
 @app.route('/register', methods=['GET','POST']) 
 def register():
     embedVar='Register'
-    #return render_template('register.html',embed=embedVar )
-
-@app.route('/register1', methods=['GET','POST']) 
-def register():
-    embedVar='Register'
-    #print(get_all_users)
-
-    isInvalid = 0  # used to flash error messages if anything was entered incorrectly
-    redirect = 0  # used to tell whether page was freshly loaded or redirected
-
-    # if post request, check that user is valid and doesn't already exist in database
-    if request.method == "POST":
-        data = request.form.to_dict()
-        first_name = data["first"]
-        last_name = data["last"]
-        email_address = data["email"]
-        #password = data["password"]
-        #reEnterPassword = data["re-enterPassword"]
-        #agree_term = data['agree-term']
-        #privacy_term = data['privacy-term']
-        #age_term = data['age-term']
-
-        # debugging
-        #for key, value in data.items():
-            #print("key: {0}, value: {1}".format(key, value))
-
-            # all user information is valid; add to database
-            #   - unique email addresses
-        if isInvalid:
-            # send user back to registration page to enter correct email
-            return render_template('register.html',embed=embedVar, isInvalid=isInvalid);
-        else:
-            all_users = get_all_users()
-            print(all_users)
-            for user in all_users:
-
-                # if an email already exists in database, return error message
-                if user[3].strip('"\'') == email_address:
-                    flash('An account with this email address already exists. Please try a different one.')
-                    isInvalid = 1
-                    return render_template('register.html',embed=embedVar, isInvalid=isInvalid )
-
-            # else, add new user to database and return success message
-
-            # create hash of password and add that to table
-            #pswd_hash = sha256(password.encode("utf-8")).hexdigest()
-
-            # add user to database; passwords currently not being saved, but are being hashed
-            #result = add_user(first_name, last_name, email_address, 5) # eventually save pswd_hash
-            redirect = 1
-            flash('Congratulations! You have successfully registered! Please go to the login page to sign in!')
-            print(all_users)
-
-            #debugging
-            #for key, value in request.form.items():
-                #flash(value)
-
-    # this will need to redirect to a different location, I think; the login page maybe?
-    return render_template('register.html',embed=embedVar, isInvalid=isInvalid, redirect=redirect)
-    #return render_template('register.html',embed=embedVar, redirect=redirect)
-    #return render_template('register.html',embed=embedVar )
+    return render_template('register.html',embed=embedVar )
   
 @app.route('/video_feed')
 def video_feed():

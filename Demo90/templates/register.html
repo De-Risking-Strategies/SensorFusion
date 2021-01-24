@@ -29,25 +29,35 @@
   <section class ="login-reg-main">
     <h2>Create New Account</h2>
     <div class="form-and-msgs">
-    <form onsubmit='sendRegReq()'  action="{{ url_for('register') }}" method='POST'>
-	    <!--
-    <form onsubmit='return validateInputs()'  action="{{ url_for('register') }}" method='POST'>
-    <form onsubmit='testSubmit()' onChange='validateReg()'  action="{{ url_for('register') }}" method='POST'>
-	    -->
-      <div class='form-section'>
-        <label for='firstName'>First</label>
-        <input id='firstName' name='first' placeholder='First' maxlength='128' onautofocus></input>
-      </div>
-      <div class='form-section'>
-        <label for='lastName'>Last</label>
-        <input id='lastName' name='last' placeholder='Last' maxlength='128' required></input>
-      </div>
-      <div class='form-section'>
-        <label for='email'>Email</label>
-        <input id='email' name='email' placeholder='Email' required></input>
-      </div>
-      <div class='form-section with-eye pswd-tip'>
-	<div class="no-outline">
+      <table>
+        <tr >
+	  <td id="">
+	    <div class='form-section'>
+              <label for='firstName'>First</label>
+              <input id='firstName' name='first' placeholder='First' maxlength='128' onautofocus></input>
+	    </div>
+	  </td>
+        </tr>
+        <tr>
+	  <td id="">
+            <div class='form-section'>
+              <label for='lastName'>Last</label>
+              <input id='lastName' name='last' placeholder='Last' maxlength='128' required></input>
+            </div>
+	  </td>
+        </tr>
+        <tr>
+	  <td id="">
+            <div class='form-section'>
+              <label for='email'>Email</label>
+              <input id='email' name='email' placeholder='Email' required></input>
+            </div>
+	  </td>
+        </tr>
+        <tr>
+	  <td id="">
+	    <div class='form-section with-eye pswd-tip'>
+	      <div class="no-outline">
           <label for='password'>Password</label>
           <input id='password' name='password' placeholder='Password' type='password' minlength="8" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange='return checkPwMatch()' required></input>
 <!--
@@ -68,7 +78,10 @@
 	  </span>
 
       </div>
-      <div class='form-section with-eye'>
+	  </td>
+        </tr>
+        <tr>
+	  <td id=""><div class='form-section with-eye'>
 	<div class="no-outline">
           <label for='re-enterPassword'>Re-Enter Password</label>
           <input id='re-enterPassword' name='re-enterPassword' placeholder='Re-Enter Password' type='password' onChange='return checkPwMatch()' required></input>
@@ -126,7 +139,10 @@
 	  </div>
 	{% endif %}
       </div>
-    </form>
+	  </td>
+        </tr>
+      </table>
+
       <div class="msg-section">
 	<div class="msgs">
 	  {% if isInvalid %}
