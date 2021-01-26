@@ -27,105 +27,125 @@ var fType;
 var fSize;
 var fileObject;
 
+var uid;
+var token;
+var password;
+
 var toggleTFCamera = true;
 
 function init(){
-var toggleLabelsBtn = document.getElementById("toggleLabelsBtn");
-var toggleScoresBtn = document.getElementById("toggleCameraBtn");
+//check login
+	uid=getCookie('uid');
+	token=getCookie('token'); 
+	password=getCookie('password'); 
 
- if(toggleTFCamera){//dynamically add tensor flow camera
-  addCamera();
- }
+if(token != "" && uid != ""){
+  console.log('Login checked');  
+  var avatarLabel = document.getElementById('avatarLabel');
+  var avatarImg = document.getElementById('profileImg');
+  avatarLabel.innerHTML = uid;
+  avatarImg.src = ('./static/assets/profile_icon_002.png');
+  
+  var toggleLabelsBtn = document.getElementById("toggleLabelsBtn");
+  var toggleScoresBtn = document.getElementById("toggleCameraBtn");
 
-//Clear Modal on outside click
-document.getElementById("main").addEventListener("click", function() {
- postAPI('restore_tesnorFlow');
- modal.style.display = "none";
- modalOpen = false;
-});
-//modal = document.getElementById("sfModal");
-modal = document.getElementsByClassName("modal")[0];
-
-// Get the button that opens the modal
-var btn = document.getElementsByClassName("myBtn");
-var btnLength = btn.length;
-
-// Get the <span> element that closes the modal
-span = document.getElementsByClassName("close")[0];
-span.onclick = function() {
-   postAPI('restore_tesnorFlow');
-   modal.style.display = "none";
-   modalOpen = false;
-    
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-   postAPI('restore_tesnorFlow');
-   modal.style.display = "none";
-   modalOpen = false;
-  }
-  var status1 = document.getElementById("annotateFileStatus");
-  status1.innerText = "";
-
- }
-document.body.onkeydown = function(e){
- // console.log(String.fromCharCode(e.keyCode)+"-->"+e.keyCode);
-  if (modalOpen == false){
-    if(e.keyCode =='32'){//SPACEBAR
-        modal1_click('annotate');
-      }else if(e.keyCode == '81'){//Q
-        postAPI('quit');
-      }else if(e.keyCode == '70'){
-        postAPI('fps')
-      } 
+   if(toggleTFCamera){//dynamically add tensor flow camera
+    addCamera();
    }
- }
 
-//INIT - Load stored Model setting
-modelType = getCookie('modelType');
+  //Clear Modal on outside click
+  document.getElementById("main").addEventListener("click", function() {
+   postAPI('restore_tesnorFlow');
+   modal.style.display = "none";
+   modalOpen = false;
+  });
+  //modal = document.getElementById("sfModal");
+  modal = document.getElementsByClassName("modal")[0];
 
-if (modelType == 'preLoaded'|| modelType ==""){
-  // preLoadedModelIndex = getCookie('modelIndex');
-  preLoadedModelIndex = parseInt(getCookie('modelIndex'));
-  customModelIndex = parseInt(getCookie('customModelIndex'));
-  setCookie("modelType", "preLoaded", 30);
-  
-  if (isNaN(preLoadedModelIndex)){
-    preLoadedModelIndex = 0;
-    setCookie("modelIndex", preLoadedModelIndex, 30);
+  // Get the button that opens the modal
+  var btn = document.getElementsByClassName("myBtn");
+  var btnLength = btn.length;
+
+  // Get the <span> element that closes the modal
+  span = document.getElementsByClassName("close")[0];
+  span.onclick = function() {
+     postAPI('restore_tesnorFlow');
+     modal.style.display = "none";
+     modalOpen = false;
+
   }
-  
-  if (isNaN(customModelIndex)){
-    customModelIndex = 0;
-    setCookie("customModelIndex", customModelIndex, 30);
-  }
-   
-   document.getElementById('switchModelLabel').innerText = preLoadedModelIndex;  
-   document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
-   document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
-   
-   document.getElementById('toggleModelLabel').innerText = 'Pre Loaded';
-   document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_off_001.png'; 
-  
-}else{
-   //customModelIndex = getCookie('customModelIndex');
-   preLoadedModelIndex = parseInt(getCookie('modelIndex'));
-   customModelIndex = parseInt(getCookie('customModelIndex'));
-   setCookie("modelType", "Custom", 30);
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+     postAPI('restore_tesnorFlow');
+     modal.style.display = "none";
+     modalOpen = false;
+    }
+    var status1 = document.getElementById("annotateFileStatus");
+    status1.innerText = "";
 
-   document.getElementById('switchModelLabel').innerText = customModelIndex;
-   document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
-   document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
-   
-   document.getElementById('toggleModelLabel').innerText = 'Custom';
-   document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_on_001.png'; 
-  
-}
-//Index value of selected item
-document.getElementById('switchModelLabel').innerText = preLoadedModel[preLoadedModelIndex];
-document.getElementById('switchCustomLabel').innerText = customModel[customModelIndex];
+   }
+  document.body.onkeydown = function(e){
+   // console.log(String.fromCharCode(e.keyCode)+"-->"+e.keyCode);
+    if (modalOpen == false){
+      if(e.keyCode =='32'){//SPACEBAR
+          modal1_click('annotate');
+        }else if(e.keyCode == '81'){//Q
+          postAPI('quit');
+        }else if(e.keyCode == '70'){
+          postAPI('fps')
+        } 
+     }
+   }
+
+  //INIT - Load stored Model setting
+  modelType = getCookie('modelType');
+
+  if (modelType == 'preLoaded'|| modelType ==""){
+    // preLoadedModelIndex = getCookie('modelIndex');
+    preLoadedModelIndex = parseInt(getCookie('modelIndex'));
+    customModelIndex = parseInt(getCookie('customModelIndex'));
+    setCookie("modelType", "preLoaded", 30);
+    
+    if (isNaN(preLoadedModelIndex)){
+      preLoadedModelIndex = 0;
+      setCookie("modelIndex", preLoadedModelIndex, 30);
+    }
+    
+    if (isNaN(customModelIndex)){
+      customModelIndex = 0;
+      setCookie("customModelIndex", customModelIndex, 30);
+    }
      
+     document.getElementById('switchModelLabel').innerText = preLoadedModelIndex;  
+     document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
+     document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
+     
+     document.getElementById('toggleModelLabel').innerText = 'Pre Loaded';
+     document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_off_001.png'; 
+    
+  }else{
+     //customModelIndex = getCookie('customModelIndex');
+     preLoadedModelIndex = parseInt(getCookie('modelIndex'));
+     customModelIndex = parseInt(getCookie('customModelIndex'));
+     setCookie("modelType", "Custom", 30);
+
+     document.getElementById('switchModelLabel').innerText = customModelIndex;
+     document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
+     document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
+     
+     document.getElementById('toggleModelLabel').innerText = 'Custom';
+     document.getElementById('toggleModelImg').src = 'http://localhost:5000/static/assets/toggle_switch_on_001.png'; 
+    
+  }
+  //Index value of selected item
+  document.getElementById('switchModelLabel').innerText = preLoadedModel[preLoadedModelIndex];
+  document.getElementById('switchCustomLabel').innerText = customModel[customModelIndex];
+}else{
+   console.log('No Token - need to login');
+   alert("Please Sign In!");
+   window.location.href='http://localhost:5000';
+ }    
 }
 
 function toggleCamera(){
@@ -315,6 +335,8 @@ function postAPI(command) {
    }   
    if(command == 'quit'){
       console.log('quitting');
+      setCookie('uid',null,1);
+      setCookie('token',null,1);
       timeRefresh(0);//Reload broswer
     }
    if(command == 'kill_tesnorFlow'){
@@ -416,9 +438,9 @@ function modal1_click(event){
     mTitle = 'Capture Images to Annotate<br/><small>Use Main Menu 4 to Label, Menu 8 to Zip your Package!</small>';
     mHtml1 ='<br><strong>Upload Annotated ZIP files only!</strong><br>';
     var row0 = '<table border="1">';
-    var row1 = '<tr><td id="ic1">Email Address</td><td id="ic4"><input id="emailAddress" name="emailAddress" type="text" style="width:250px" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
-    var row2 = '<tr><td id="ic2">Password</td><td id="ic6"><input id="pwd" type="password" style="width:300px" onchange="validatePassword(this);return false" onblur=""></input></td></tr>';
-    var row3 = '<tr><td id="ic3">Description</td><td id="ic6"><input id="uDescription" type="text" style="width:300px" onchange="validateDescription(this);return false" onblur=""></input></td></tr>';
+    var row1 = '<tr><td id="ic1">Email Address</td><td id="ic4"><input id="emailAddress" name="emailAddress" type="text" style="width:250px;background-color:#414141" readonly value='+uid+' ></input></td></tr>';
+    var row2 = '<tr><td id="ic2">Password</td><td id="ic6"><input id="pwd" type="password" style="width:300px;background-color:#414141" onchange="" readonly value='+password+'></input></td></tr>';
+    var row3 = '<tr><td id="ic3">Description</td><td id="ic6"><input id="uDescription" type="text" style="width:300px" onchange="validateDescription(this);return false" autofocus ></input></td></tr>';
     var row4 = '<tr><td id="ic4" colspan=2>&nbsp;</td></tr>';
     var row5 = '<tr><td id="ic5">Pick A Zip File</td><td id="ic2"><input id="picker" type="file" style="width:350px" onchange="" ></input><br/><span id="filePicked"></span><br/></td></tr>';
     var row6 = '</table>'
@@ -495,111 +517,11 @@ function validateUpload(){
       modal.style.display = "none";
       modalOpen = false;
       //Login Upload
-      loginUpload(pwd, fName, email, desc);
+      loginUpload(pwd, fName, email, desc, 'upload');
     }else{
       txt = 'Cancelled Uploading Sensor Fusion Package';
     }
 }
-function loginUpload(password, file, email, desc){
-  //1. Login and get Token
-  //EX: curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"some@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login'                                                         
-  const postLoginUrl = 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login';
-  var body ='{"user_email":"'+email+'","password":"'+password+'"}';
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", postLoginUrl, true);
-  xhr.setRequestHeader('Content-Type','application/json');
-  xhr.onreadystatechange = function(){
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200){
-      var token = this.response;
-      console.log('Login Response: '+ token);
-      getUploadURL(token, file, desc);
-    }
-    if (this.readyState === XMLHttpRequest.DONE && this.status != 200){
-      var r = this.response;
-      var msg = 'Login error, please try again: '+ r;
-      console.log(msg);
-      alert(msg);
-    }
-  }
-  xhr.send(body);
-}
-async function getUploadURL(token, file, desc){
-  //2. Get Signed URL  for Upload with Token
-  //EX: curl -v -X POST -H "Content-Type: application/json" -d '{"token": “<token>“, "desc": "This is my description."}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/get_upload_url'
-  const getUploadURL = 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/get_upload_url';
-  var t = JSON.parse(token);
-  var tok = t.token;
-  
-  var body ='{"token":"'+tok+'","desc":"'+desc+'"}';
-  var xhr2 = new XMLHttpRequest();
-  xhr2.open("POST", getUploadURL, true);
-  xhr2.setRequestHeader('Content-Type','application/json');
-  xhr2.onreadystatechange = function(){
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200){
-      var upLoadURL = this.response;
-      console.log('Get Upload URL Response: '+ upLoadURL);
-      putUpload(upLoadURL, file);
-    }
-    if (this.readyState === XMLHttpRequest.DONE && this.status != 200){
-      var r = this.response;
-      var msg = 'Get Upload URL error, please try again: '+ r;
-      console.log(msg);
-      alert(msg);
-    }
-  }
-  xhr2.send(body);
-}
-function putUpload(upLoadURL, file){
-  //3. Upload zip file
-  //curl -i --request PUT --upload-file "<file>" "<upLoadURL>"
-  console.log('Uploading File: '+file);
-  var putSourcePath = "/home/pi/SensorFusion/Pictures/"+file;
-  var data = {};
-  data.file = putSourcePath;
-  var json = JSON.stringify(data);
-  var pBar = document.getElementById('progressBar');
-  var pBarLabel = document.getElementById('pbarLabel');
-  
-  var xhr3 = new XMLHttpRequest();
-  xhr3.upload.addEventListener("progress", function(e){
-    if(e.lengthComputable){
-      var percent =  parseInt((e.loaded / e.total)*100);
-      console.log("Uploading File: "+percent);
-      pBar.style.display = 'block';
-      pBarLabel.innerText = file +' uploaded: '+ (percent +1)+ '%';
-      pBar.style.background = "linear-gradient(to right, #57c2c1 " + percent + "%, #4a4a52 " + percent + "%)";
-      //pBar.style.width = percent
-      postAPI('restore_tesnorFlow');
-    }
-  });
-  xhr3.upload.addEventListener("load", function(e){
-      pBar.style.display = 'none';
-      msg = 'Your file:  '+file+' was successfully Uploded!'
-      console.log(msg);
-      alert(msg);
-      postAPI('restore_tesnorFlow');
-  });
-  
-  xhr3.open("PUT", upLoadURL, true);
-  //xhr3.setRequestHeader('Content-Type','application/json');
-  xhr3.overrideMimeType(file.type);
-  xhr3.onreadystatechange = function(){
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200){
-      var res = this.response;
-      console.log('File Upload Response: '+ res);
-      
-    }
-    if (this.readyState === XMLHttpRequest.DONE && this.status != 200){
-      var r = this.response;
-      var msg = 'Upload File error, please try again: '+ r;
-      console.log(msg);
-      alert(msg);
-    }
-  }
-  xhr3.send(fileObject);
-
-}
-
 
 function addCamera(){
   //Dynamic Version of: <img class='videoStream' id='cameraStream' src="{{ url_for('video_feed') }}" width="100%" style='display:block'>-->
@@ -611,7 +533,7 @@ function addCamera(){
   videoStream.style.display = "block";
   document.getElementById('camera1Div').appendChild(videoStream);
   
-  //For debugging, comment the lkine above and uncomment the lines below
+  //For Javascript debugging, comment the line above and uncomment the lines below
   //var nullStream = document.createElement('img');
   //nullStream.style.display = "none";
   //document.getElementById('camera1Div').appendChild(nullStream);//for debugging

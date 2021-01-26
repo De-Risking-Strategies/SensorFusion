@@ -3,7 +3,7 @@
 # (C) 2020 - De-Risking Strategies, LLC #
 # DRS ML/AI Flask API                   #
 # Authors: Pushkar K / Drew A           #
-# Updated 01-15-2021  See CHANGELOG.md  #
+# Updated 01-26-2021  See CHANGELOG.md  #
 #########################################
 import os
 import argparse
@@ -52,7 +52,7 @@ os.environ['kill_tensorFlow'] = 'False'
 fps_flag = False #showing frames per second is false by default - controlled by 'F' keyboard command
 
 
-@app.route('/',methods=['GET'])
+@app.route('/sf',methods=['GET'])
 def index():
    video_camera_flag = True
    #On a reload
@@ -196,7 +196,7 @@ def api():
         message = {'Capture':'Capturing Images!'}
         return jsonify(message)  # serialize and use JSON headers
 
-@app.route('/login') 
+@app.route('/') 
 def login():
    embedVar='Login'
    return render_template('login.html',embed=embedVar )
@@ -205,13 +205,20 @@ def login():
 def register():
    embedVar='Register'
    return render_template('register.html',embed=embedVar )
-  
+
+@app.route('/reset') 
+def pwdreset():
+   embedVar='pwdreset'
+   return render_template('pwdreset.html',embed=embedVar )
+
+ 
 @app.route('/video_feed')
 def video_feed():
     #Video streaming route: goes into src attribute of an img tag
     print('\nin FLASK: locals() value inside class\n', locals())
     
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 # ============================
 def gen_frames():
@@ -226,7 +233,7 @@ def gen_frames():
             global file_save_id
             file_save_id =0
             
-            # Initialize the PiCamera and the camera image stream
+            # Capture a USB Camera stream
             self.stream = cv2.VideoCapture(0)
  
             #VideoStream Instance
