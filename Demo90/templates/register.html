@@ -6,145 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="HandheldFriendly" content="true">
     <meta http-equiv="content-type" content="text/html;charset=utf-8" >
-    <link rel='stylesheet', href='/static/css/style.css'>
+
     <link rel='stylesheet', href='/static/css/register.css'>
     <script src='/static/js/utilities.js'></script>
     <script src='/static/js/register.js'></script>
 </head>
 
-<body>
+<body onload="initReg();return false">
   <noscript>
     You need to enable JavaScript to run Sensor Fusion!
   </noscript>
   <div class='login-reg-top' id='login'>
 
   <section class ="header">
-      <div id=''>
-      <img class='logo' src='/static/assets/sensor_fusion_logo_001.png'/>
-        
-          <img class='login-reg-background' src='/static/assets/onboarding_background_001.png'/>
-           
+    <div id=''>
+      <div class='reg-logo'>
+         <img class='logo' src='/static/assets/sensor_fusion_logo_001.png'/>
       </div>
-  </section>
-  <section class ="login-reg-main">
-    <h2>Create New Account</h2>
-    <div class="form-and-msgs">
-    <form action="{{ url_for('register') }}" method='POST'>
-      <div class='form-section'>
-        <label for='firstName'>First</label>
-        <input id='firstName' name='first' placeholder='First' maxlength='128' autofocus></input>
-      </div>
-      <div class='form-section'>
-        <label for='lastName'>Last</label>
-        <input id='lastName' name='last' placeholder='Last' maxlength='128' required></input>
-      </div>
-      <div class='form-section'>
-        <label for='email'>Email</label>
-        <input id='email' name='email' placeholder='Email' required></input>
-      </div>
-      <div class='form-section with-eye pswd-tip'>
-	<div class="no-outline">
-          <label for='password'>Password</label>
-          <input id='password' name='password' placeholder='Password' type='password' maxlength="10" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange='return verifyPswd()' required></input>
-
-	</div>
-	<div class='visibility-icon'>
-	  <input id='pswd-vis' type='checkbox' onclick='showPassword1()'></input>
-	  <label for='pswd-vis'></label>
-	</div>
-	<span class='pswd-tip-text'>
-            <h3>Password should contain the following:</h3>
-              <h3 class="pswd-req">- 1 capital letter</h3>
-              <h3 class="pswd-req">- 1 lowercase letter</h3>
-              <h3 class="pswd-req">- 1 number</h3>
-              <h3 class="pswd-req">- 1 symbol</h3>
-	  </span>
-
-      </div>
-      <div class='form-section with-eye'>
-	<div class="no-outline">
-          <label for='re-enterPassword'>Re-Enter Password</label>
-          <input id='re-enterPassword' name='re-enterPassword' placeholder='Re-Enter Password' type='password' onChange='return verifyPswd()' required></input>
-	</div>
-	<div class='visibility-icon'>
-	  <input id='confirm-pswd-vis' type='checkbox' onclick='showPassword2()'></input>
-	  <label for='confirm-pswd-vis'></label>
-	</div>
-      </div>
-      <div class='terms' id='terms'>
-	{% if not isInvalid and redirect %}
-          <div class='chkbox-group' id='chkbox-group' hidden>
-        {% else %}
-          <div class='chkbox-group' id='chkbox-group'>
-	{% endif %}
-	  <h3>I agree</h3>
-	  <div class='term'>
-	    <input id='agree-term' name='agree-term' type='checkbox' required></input>
-	    <label for='agree-term'>Terms</label>
-	  </div>
-	  <div class='term'>
-	    <input id='privacy-term' name='privacy-term' type='checkbox' required></input>
-	    <label for='privacy-term'>Privacy Policy</label>
-	  </div>
-	  <div class='term'>
-	    <input id='age-term' name='age-term'type='checkbox' required></input>
-	    <label for='age-term'>16+ years old</label>
-	  </div>
-	</div>
-	{% if not isInvalid and redirect %}
-	  <div class='term-btns' id='term-btns' hidden>
-        {% else %}
-	  <div class='term-btns' id='term-btns'>
-	{% endif %}
-	  <a href="{{ url_for('login') }}"><strong>Cancel</strong></a> 
-	  <button id='submit-btn' class='btn' type='submit' value='create'>
-	    <strong class='btn-outline'>Create Account</strong>
-	  </button>
-        </div>
-        {% if not isInvalid %}
-          <div class="msgs">
-	    <div class='success-msgs'>
-	      {% with messages = get_flashed_messages() %}
-	        {% if messages %}
-	          {% for message in messages %}
-	            <h3>{{ message }}</h3>
-	            <a href="{{ url_for('login') }}">Login</a>
-	          {% endfor %}
-	        {% endif %}
-	      {% endwith %}
-	    </div>
-	  </div>
-	{% endif %}
-      </div>
-    </form>
-      <div class="msg-section">
-	<div class="msgs">
-	  {% if isInvalid %}
-	    <div class='warning-msgs'>
-	      {% with messages = get_flashed_messages() %}
-	        {% if messages %}
-	          {% for message in messages %}
-	            <h3>{{ message }}</h3>
-	          {% endfor %}
-	        {% endif %}
-	      {% endwith %}
-	    </div>
-	  {% endif %}
-	</div>
-
-      </div>
+      
     </div>
-
   </section>
-  <section class ="login-reg-foot">
-    <div class='login-reg-foot-text'>
+  <section class ="main">
+    <div class="form-and-msgs">
+      <div class ="login-reg-main">
+         <div class='form-section' id="login-section">
+         </div>
+
+      </div>
+  </section>
+  
+  
+  <section class ="footer">
+    <div class='reg-foot-text'>
       <strong>&copy 2020, De-Risking Strategies. LLC</strong>
       </div>
   </section>
   </div>
 </body>
 </html>
-
-
-
-   
