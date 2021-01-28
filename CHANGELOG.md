@@ -5,6 +5,20 @@
 ## SENSOR FUSION CHANGELOG                     
 ----
 
+## January 26, 2021 - Registration , Login, Forgot Password, Reset Password, Privacy Policy, TOC and Age Terms included 
+>IMPORTANT - From this point forward, you will need to registration and then sign in to use the App.
+
+1. This update integrates the Login and Registration AWS API's, and changes the way the program is launched.  Now it launches to the Login page and forces you to register or login.
+2. Integrated Registration Page with baseline functionality and error checking - no duplicate email address allowed. 6 Character minimum password length
+3. Added Login page with baseline functionality and error checking.
+4. Added Forgot Password on Login page with Emailed Key and Token based replacement
+5. Added Reset Password on Login to create a new Password with the Forgot Password Key
+6. Upload Images function now uses the pre-logged in Account and Password. NOTE - It's possible to login under multiple accounts from One Pi, using different email addresses.
+7. Added the Avatar Image update and Login indication.  Worked out all the internal navigation flows for Logout and Login.
+
+>NOTE 1 - Login tokens last for 1 day and then auto expire .  You will need to Logoff and Login again to use the app.
+
+>NOTE 2 - Forgot Password Kesy are one-time use, and will  auto-expire in 1 hour 
 
 ## January 15, 2021 - Upload to Server with Login and Token, CSS fixups, Validation and Error handling, Progress Bar on Upload, Fixed Score%-Label Model switch bug
 - Added full Zip file login with token and upload with description to secure Signed URL

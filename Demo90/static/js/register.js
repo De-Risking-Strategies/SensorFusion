@@ -1,9 +1,78 @@
+<<<<<<< HEAD
 /* Check length of first name; ensure it is not blank */
 /* Check length of email; ensure it is not blank; ensure it is in the right format */
 
 
 /* Password Visibility (Icons) */
 
+=======
+var uid;
+var token;
+var logout;
+var input;
+//Register and Create Account - NOTE - Email is valideded server side to avoid account collissions.
+function initReg(){
+  createAccount();
+}
+function createAccount(){
+	var forgot = document.getElementById("login-section");
+ 	const row0 = '<br/><div border="0"><span>Create New Account</span>';
+	
+  const row1 = '<br><div class="iBox"><label for="firstName">First</label><input id="firstName" name="first" placeholder="First name" maxlength="128" autofocus></input></div>';
+  const row2 = '<br><div class="iBox"><label for="lastName">Last</label><input id="lastName" name="last" placeholder="Last Name" maxlength="128" onautofocus></input></div>';
+  
+  const row3 = '<br><div class="iBox"><label for="email">Email</label><input class="input" id="email" name="email" placeholder="your@email.com" maxlength="256" onchange="validateEmail(this);return false"></input></div>';
+  
+  const row4 = '<br><div class="iBox"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
+  const row5 = '<br><div class="iBox"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
+  const row6 = '</div><br/>';
+  
+  //eye - future
+  const fEye1 ='<div class="form-section with-eye"><div class="no-outline">';
+  const fEye2 ='<label for="re-enterPassword">Re-Enter Password</label>';
+  const fEye3 ='<input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="return checkPwMatch()" required></input></div>';
+  const fEye4 ='<div class="visibility-icon">';
+  const fEye5 ='<input id="confirm-pswd-vis" type="checkbox" onclick="showPassword2()"></input><label for="confirm-pswd-vis"></label></div></div>';
+  const fEye = fEye1+fEye2+fEye3+fEye4+fEye5;
+  
+  const terms1 ='<div class="terms" id="terms"><span>I Agree:</span><br> <div class="chkbox-group" id="chkbox-group" >';
+  const terms2 ='<div class="term"><input id="agree-term" name="agree-term" type="checkbox" required></input>';
+  const terms3 ='<label for="agree-term"><a href="/static/assets/drs-terms-and-conditions.md" style="color:#fff" target="_blank" >Terms and Conditions</a></label></div>';
+  const terms = terms1 +terms2+terms3
+  
+  const priv1 ='<div class="term" >';
+  const priv2 ='<input id="privacy-term" name="privacy-term" type="checkbox" required></input>';
+  const priv3 ='<label  for="privacy-term"><a href=/static/assets/"drs-privacy-policy.md" style="color:#fff"  target="_blank">Privacy Policy</a></label></div>';
+  const privTerm = priv1+priv2+priv3;
+  
+  const age1 = '<div class="term">'
+  const age2 ='<input id="age-term" name="age-term" type="checkbox" required></input>';
+  const age3 ='<label for="age-term"><a href="/static/assets/drs-I-am-17-or-older.md" style="color:#fff" target="_blank"  >I am 17 years or Older</a></label>';
+  const termBtn ='<div class="term-btns" id="term-btns"></div></div>';
+  const ageTerm = age1+age2+age3+termBtn; 
+  
+  const foot1 = '<a href="http://localhost:5000"><span   class="btn" style="color:#bb86fc">CANCEL</span></a>';
+  const foot2 = '<a id="submit-btn" class="btn" onclick="sendRegReq(); return false"><span style="color:#bb86fc">CREATE ACCOUNT</span></a>';
+  const foot3 = '</div>'  
+	const footer = foot1+foot2+foot3;
+  
+  const wMsg1 = '<div class="msg-section" style="display:none"><div class="msgs"><div class="warning-msgs"></div></div><div>';
+  const sMsg = '<div class="msgs" style="display:none"><div class="success-msgs"><h3>{{ message }}</h3><a href="http://localhost:5000">Login</a></div></div>';    
+      
+      
+  var regHtml = row0+row1+row2+row3+row4+row5+row6+terms+privTerm+ageTerm+footer+wMsg1+sMsg;
+    forgot.innerHTML  = regHtml;
+	var input = document.addEventListener("keyup", function(event){
+		if(event.keyCode == 13){
+		document.getElementById('submit-btn').click();
+		}
+	});
+}
+
+/* Check length of first name; ensure it is not blank */
+/* Check length of email; ensure it is not blank; ensure it is in the right format */
+/* Password Visibility (Icons) */
+>>>>>>> master
 function showPassword1() {
   var x = document.getElementById("password");
   if (x.type === "password") {
@@ -23,7 +92,20 @@ function showPassword2() {
 }
 
 /* Check if passwords match and disable button */
+<<<<<<< HEAD
 
+=======
+function validatePasswordsMatch(){
+	console.log('validatePasswordsMatch ');
+	var n1 =document.getElementById('password').value;
+	var n2 =document.getElementById('re-enterPassword').value;
+	
+	if(n1 != n2){
+		alert('Passwords don`t match, try again!');
+	}
+}
+/*the below is for future use */
+>>>>>>> master
 function checkPwMatch() {
   var pw1 = document.getElementById("password");
   var pw2 = document.getElementById("re-enterPassword");
@@ -61,11 +143,20 @@ function checkPwMatch() {
       warningMsgs.style.display = "block";
     }
     //else {}
+<<<<<<< HEAD
     console.log("passwords do not match!")
+=======
+    var msg = "Passwords do not match - please try again";
+    console.log(msg);
+    alert(msg);
+>>>>>>> master
     return false;
   }
 }
+//Login and get Token
+//EX: curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"some@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login'
 
+<<<<<<< HEAD
 
 /*  - what if I listen for an event to occur (such as the success message popping up) before actually sending this?
         - if success message (green), then send; if error message (red), then don't send
@@ -91,6 +182,9 @@ function checkPwMatch() {
 //function validate() {// if validInputs returns true, send the registerUser request;ƒ otherwise, ???}
 
 
+=======
+	
+>>>>>>> master
 function validateInputs() {
   // if validations pass, send the request to AWS
   var first = document.getElementById("firstName").value;
@@ -248,6 +342,7 @@ function sendRegReq() {
   var last = document.getElementById("lastName").value;
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
+<<<<<<< HEAD
 
   var isValid = validateInputs();
   // validate the inputs
@@ -259,6 +354,73 @@ function sendRegReq() {
   }
   return false
   //return isValid;
+=======
+  
+  if(first == '' || last == '' || email == ''|| password == ''){
+      alert("You must fill out the fields!");
+      return false;
+  }
+  
+  var term = document.getElementById("agree-term").checked;
+  var privacyTerm = document.getElementById("privacy-term").checked;
+  var ageTerm = document.getElementById("age-term").checked;
+  
+  console.log("Validating request: " + term +":"+ privacyTerm +": "+ ageTerm);
+  
+  if(term == false || privacyTerm == false || ageTerm == false){
+      alert("You must agree to Terms and Conditions first!");
+      return false;
+  }else{
+
+    var isValid = validateInputs();
+    // validate the inputs
+    if (isValid) {
+      // verify the email does not already exist?
+      // send POST request
+      registerUser(first, last, email, password);
+      return true;
+    }
+    return false;
+    //return isValid;
+ }
+}
+
+function testSubmit() {
+  x = document.querySelector("div.success-msgs")
+  y = document.querySelector("div.warning-msgs")
+  x.addEventListener("load", successMsg())
+  y.addEventListener("load", errorMsg())
+}
+
+function successMsg() {
+  console.log("Successfully Submitted!")
+  // then remove Event listener from both success and error messages
+}
+
+function errorMsg() {
+  console.log("Form could not be submitted")
+  // then remove Event listener from both success and error messages
+}
+function validateEmail(em) {
+    var e = em.value;
+    if (e == '' ){
+     alert('Please enter a valid email address');
+     document.getElementById("email").value ="";
+     document.getElementById("email").focus();
+    } else{
+
+      var re = /\S+@\S+\.\S+/;
+      //return re.test(e);
+      var vE = re.test(e);
+      if(!vE){
+        alert('Valid Email Address Required');
+        document.getElementById("email").value ="";
+        document.getElementById("email").focus();
+      }else{
+        console.log('eEmail validated!');
+      }
+    }
+>>>>>>> master
 }
 
 function testSubmit() {

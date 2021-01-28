@@ -8,6 +8,7 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" >
     <link rel='stylesheet', href='/static/css/style.css'>
     <link rel='stylesheet', href='/static/css/sidenav.css'>
+    <script src='/static/js/login.js'></script>
     <script src='/static/js/globals.js'></script>
     <script src='/static/js/utilities.js'></script>
     <script src='/static/js/sidenav.js'></script>
@@ -46,15 +47,21 @@
           <td style='position:absolute;top:1%;left:84%;text-align: center'>  
             <a onclick="openSettings();"><img class='standard_button' src='/static/assets/settings_002.png'/></a>
             </td>  
-          <td style='position:absolute;top:1%;left:90%;text-align: center'> 
-             <a onclick="modal1_click('profile');"><img class='standard_button' src='/static/assets/profile_icon_001.png'/></a>
+          <td style='position:absolute;top:1%;left:90%;text-align: center; vertical-align:bottom'> 
+             <a id='profileAvatar' onclick="logOut('l'); return false"><img class='standard_button' id='profileImg' src='/static/assets/profile_icon_001.png'/></a>
              </td>
           <td style='position:absolute;top:1%;left:96%;text-align: center'>
              <a id='openFullScreenButton' onclick="openFullscreen();"><img id='open_fullscreen' class='standard_button' src='/static/assets/icon-navigation-fullscreen_001.png'/></a>
              <a onclick="closeFullscreen();"><img id='close_fullscreen' class='standard_button' src='/static/assets/icon-navigation-fullscreen_exit_001.png' style="display:none"/></a>
           
           </td>
-         </tr></table>
+         </tr>
+         <tr>
+           <td id='avatarLabelCell' colspan ='5' style='position:absolute;top:6.5%;right:4.5%;text-align: center; vertical-align:bottom' > 
+             <span id='avatarLabel' style='font-size:.6em'></span></a>
+          </td>
+          
+         </table>
       </div>
   </section>
   <section class="main" >
@@ -117,9 +124,8 @@
 <!-- The settings-->
 <div id="sfSettings" class="settings">
   <a href="javascript:void(0)" class="sclosebtn" onclick="closeSettings()">&times;</a>
-  <a href="/register">Register</a>
-  <a href="/login">Logout</a>
-  <a href="#" onclick="modal1_click();">Reset Password</a>
+  <a onclick="logOut('l'); return false">Logout</a>
+  <a onclick="logOut('f'); return false">Forgot Password</a>
   <a onclick="postAPI('quit');">Restart Sensor Fusion </a>
 </div>
 <div id='fileSelected'></div>
