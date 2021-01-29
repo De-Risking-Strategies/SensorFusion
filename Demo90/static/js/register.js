@@ -10,19 +10,19 @@ function createAccount(){
 	var forgot = document.getElementById("login-section");
  	const row0 = '<br/><div border="0"><span>Create New Account</span>';
   // row1
-  const row1 = '<br><div class="iBox"><label for="firstName">First</label><input id="firstName" name="first" placeholder="First name" maxlength="128" autofocus></input></div>';
+  const row1 = '<br><div class="iBox form-section"><label for="firstName">First</label><input id="firstName" name="first" placeholder="First name" maxlength="128" autofocus></input></div>';
   // row2
-  const row2 = '<br><div class="iBox"><label for="lastName">Last</label><input id="lastName" name="last" placeholder="Last Name" maxlength="128" onautofocus></input></div>';
+  const row2 = '<br><div class="iBox form-section"><label for="lastName">Last</label><input id="lastName" name="last" placeholder="Last Name" maxlength="128" onautofocus></input></div>';
   // row3
-  const row3 = '<br><div class="iBox"><label for="email">Email</label><input class="input" id="email" name="email" placeholder="your@email.com" maxlength="256" onchange="validateEmail(this);return false"></input></div>';
+  const row3 = '<br><div class="iBox form-section"><label for="email">Email</label><input class="input" id="email" name="email" placeholder="your@email.com" maxlength="256" onchange="validateEmail(this);return false"></input></div>';
   // row4
   //const row4 = '<br><div class="iBox"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
 
-  const row4 = '<br><div class="iBox with-eye pswd-tip"><div class="no-outline"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
+  const row4 = '<br><div class="iBox form-section with-eye pswd-tip"><div class="no-outline"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
   
   const row5 = '<div class="visibility-icon"><input id="pswd-vis" type="checkbox" minlength="8" onclick="showPassword1()"></input><label for="pswd-vis"></label></div><span class="pswd-tip-text"><h3>Password requirements:</h3><h3 class="pswd-req">- must be at least 6 characters long</h3><h3 class="pswd-req">- must contain 1 capital letter</h3><h3 class="pswd-req">- must contain 1 lowercase letter</h3><h3 class="pswd-req">- must contain 1 number</h3><h3 class="pswd-req">- must contain 1 symbol</h3></span></div>';
   // row 5
-  const row6 = '<br><div class="iBox with-eye"><div class="no-outline"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
+  const row6 = '<br><div class="iBox form-section with-eye"><div class="no-outline"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
   const row7 = '<div class="visibility-icon"><input id="confirm-pswd-vis" type="checkbox" onclick="showPassword2()"></input><label for="confirm-pswd-vis"></label></div></div>';
   // row6
   const row8 = '</div><br/>';
@@ -334,22 +334,6 @@ function sendRegReq() {
  }
 }
 
-function testSubmit() {
-  x = document.querySelector("div.success-msgs")
-  y = document.querySelector("div.warning-msgs")
-  x.addEventListener("load", successMsg())
-  y.addEventListener("load", errorMsg())
-}
-
-function successMsg() {
-  console.log("Successfully Submitted!")
-  // then remove Event listener from both success and error messages
-}
-
-function errorMsg() {
-  console.log("Form could not be submitted")
-  // then remove Event listener from both success and error messages
-}
 function validateEmail(em) {
     var e = em.value;
     if (e == '' ){

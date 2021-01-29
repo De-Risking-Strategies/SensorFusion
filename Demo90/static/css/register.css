@@ -96,19 +96,19 @@ h2 {
 }
 
 input {
-    border: none;
-    color: white;
-    font-size: 100%;
-    margin-top: 2px;
-    padding: 0;
-    margin-bottom: 2px;
-    background-color: #444444;
-    min-height: 23px;
-
+   border: none;
+   color: white;
+   font-size: 100%;
+   margin-top: 2px;
+   padding: 0;
+   margin-bottom: 2px;
+   background-color: #444444;
+   min-height: 23px;
+   width: 100%;
 }
 .iBox{
-    background-color: #444444;
-    border-bottom: 7px #bb86fc solid;
+   background-color: #444444;
+   border-bottom: 7px #bb86fc solid;
 }
 ::placeholder{
    color:white;
@@ -178,8 +178,6 @@ td{
    box-sizing: border-box;
    margin-bottom: 7px;
    padding: 2px 6px;
-
-
 }
 
 .form-and-msgs {
