@@ -207,8 +207,10 @@ td{
    margin-top: 0;
 }
 
+.no-outline,
 .no-outline:focus {
    outline: none;
+   width: 100%;
 }
 
 .pswd-req {
