@@ -9,15 +9,23 @@ function initReg(){
 function createAccount(){
 	var forgot = document.getElementById("login-section");
  	const row0 = '<br/><div border="0"><span>Create New Account</span>';
-	
+  // row1
   const row1 = '<br><div class="iBox"><label for="firstName">First</label><input id="firstName" name="first" placeholder="First name" maxlength="128" autofocus></input></div>';
+  // row2
   const row2 = '<br><div class="iBox"><label for="lastName">Last</label><input id="lastName" name="last" placeholder="Last Name" maxlength="128" onautofocus></input></div>';
-  
+  // row3
   const row3 = '<br><div class="iBox"><label for="email">Email</label><input class="input" id="email" name="email" placeholder="your@email.com" maxlength="256" onchange="validateEmail(this);return false"></input></div>';
+  // row4
+  //const row4 = '<br><div class="iBox"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
+
+  const row4 = '<br><div class="iBox with-eye pswd-tip"><div class="no-outline"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
   
-  const row4 = '<br><div class="iBox"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
-  const row5 = '<br><div class="iBox"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
-  const row6 = '</div><br/>';
+  const row5 = '<div class="visibility-icon"><input id="pswd-vis" type="checkbox" minlength="8" onclick="showPassword1()"></input><label for="pswd-vis"></label></div><span class="pswd-tip-text"><h3>Password requirements:</h3><h3 class="pswd-req">- must be at least 6 characters long</h3><h3 class="pswd-req">- must contain 1 capital letter</h3><h3 class="pswd-req">- must contain 1 lowercase letter</h3><h3 class="pswd-req">- must contain 1 number</h3><h3 class="pswd-req">- must contain 1 symbol</h3></span></div>';
+  // row 5
+  const row6 = '<br><div class="iBox with-eye"><div class="no-outline"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
+  const row7 = '<div class="visibility-icon"><input id="confirm-pswd-vis" type="checkbox" onclick="showPassword2()"></input><label for="confirm-pswd-vis"></label></div></div>';
+  // row6
+  const row8 = '</div><br/>';
   
   //eye - future
   const fEye1 ='<div class="form-section with-eye"><div class="no-outline">';
@@ -52,7 +60,7 @@ function createAccount(){
   const sMsg = '<div class="msgs" style="display:none"><div class="success-msgs"><h3>{{ message }}</h3><a href="http://localhost:5000">Login</a></div></div>';    
       
       
-  var regHtml = row0+row1+row2+row3+row4+row5+row6+terms+privTerm+ageTerm+footer+wMsg1+sMsg;
+  var regHtml = row0+row1+row2+row3+row4+row5+row6+row7+row8+terms+privTerm+ageTerm+footer+wMsg1+sMsg;
     forgot.innerHTML  = regHtml;
 	var input = document.addEventListener("keyup", function(event){
 		if(event.keyCode == 13){
@@ -302,9 +310,9 @@ function sendRegReq() {
       return false;
   }
   
-  var term = document.getelementbyid("agree-term").checked;
-  var privacyterm = document.getelementbyid("privacy-term").checked;
-  var ageterm = document.getelementbyid("age-term").checked;
+  var term = document.getElementById("agree-term").checked;
+  var privacyterm = document.getElementById("privacy-term").checked;
+  var ageterm = document.getElementById("age-term").checked;
   
   console.log("validating request: " + term +":"+ privacyterm +": "+ ageterm);
   
@@ -313,7 +321,7 @@ function sendRegReq() {
       return false;
   }else{
 
-    var isvalid = validateinputs();
+    var isValid = validateInputs();
     // validate the inputs
     if (isValid) {
       // verify the email does not already exist?
