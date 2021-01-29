@@ -20,154 +20,17 @@
 
   <section class ="header">
     <div id=''>
-<<<<<<< HEAD
-      <img class='logo' src='/static/assets/sensor_fusion_logo_001.png'/>
-
-      <!--    <img class='login-reg-background' src='/static/assets/onboarding_background_001.png'/> -->
-
-=======
       <div class='reg-logo'>
          <img class='logo' src='/static/assets/sensor_fusion_logo_001.png'/>
       </div>
-      
->>>>>>> master
     </div>
   </section>
   <section class ="main">
     <div class="form-and-msgs">
-<<<<<<< HEAD
-      <table>
-        <tr >
-	  <td id="">
-	    <div class='form-section'>
-              <label for='firstName'>First</label>
-              <input id='firstName' name='first' placeholder='First' maxlength='128' onautofocus></input>
-	    </div>
-	  </td>
-        </tr>
-        <tr>
-	  <td id="">
-            <div class='form-section'>
-              <label for='lastName'>Last</label>
-              <input id='lastName' name='last' placeholder='Last' maxlength='128' required></input>
-            </div>
-	  </td>
-        </tr>
-        <tr>
-	  <td id="">
-            <div class='form-section'>
-              <label for='email'>Email</label>
-              <input id='email' name='email' placeholder='Email' required></input>
-            </div>
-	  </td>
-        </tr>
-        <tr>
-	  <td id="">
-	    <div class='form-section with-eye pswd-tip'>
-	      <div class="no-outline">
-                <label for='password'>Password</label>
-                <input id='password' name='password' placeholder='Password' type='password' minlength="8" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange='return checkPwMatch()' required></input>
-	      </div>
-	      <div class='visibility-icon'>
-	        <input id='pswd-vis' type='checkbox' minlength="8"  onclick='showPassword1()'></input>
-	        <label for='pswd-vis'></label>
-	      </div>
-	      <span class='pswd-tip-text'>
-		<h3>Password requirements:</h3>
-                  <h3 class="pswd-req">- must be at least 8 characters long</h3>
-                  <h3 class="pswd-req">- must contain 1 capital letter</h3>
-		  <h3 class="pswd-req">- must contain 1 lowercase letter</h3>
-                  <h3 class="pswd-req">- must contain 1 number</h3>
-                  <h3 class="pswd-req">- must contain 1 symbol</h3>
-	      </span>
-            </div>
-	  </td>
-        </tr>
-        <tr>
-	  <td id=""><div class='form-section with-eye'>
-	    <div class="no-outline">
-              <label for='re-enterPassword'>Re-Enter Password</label>
-              <input id='re-enterPassword' name='re-enterPassword' placeholder='Re-Enter Password' type='password' onChange='return checkPwMatch()' required></input>
-	    </div>
-	    <div class='visibility-icon'>
-	      <input id='confirm-pswd-vis' type='checkbox' onclick='showPassword2()'></input>
-	      <label for='confirm-pswd-vis'></label>
-	    </div>
-          </div>
-          <div class='terms' id='terms'>
-	    {% if not isInvalid and redirect %}
-              <div class='chkbox-group' id='chkbox-group' hidden>
-            {% else %}
-              <div class='chkbox-group' id='chkbox-group'>
-	    {% endif %}
-	      <h3>I agree</h3>
-	      <div class='term'>
-		<input id='agree-term' name='agree-term' type='checkbox' required></input>
-		<label for='agree-term'>Terms</label>
-	      </div>
-	      <div class='term'>
-		<input id='privacy-term' name='privacy-term' type='checkbox' required></input>
-		<label for='privacy-term'>Privacy Policy</label>
-	      </div>
-	        <div class='term'>
-	          <input id='age-term' name='age-term'type='checkbox' required></input>
-	          <label for='age-term'>16+ years old</label>
-	        </div>
-	      </div>
-	      {% if not isInvalid and redirect %}
-	        <div class='term-btns' id='term-btns' hidden>
-              {% else %}
-	        <div class='term-btns' id='term-btns'>
-	      {% endif %}
-	        <a href="{{ url_for('login') }}"><strong>Cancel</strong></a> 
-	        <button id='submit-btn' class='btn' type='button' value='create' onclick='sendRegReq()'>
-	          <strong class='btn-outline'>Create Account</strong>
-	        </button>
-              </div>
-              {% if not isInvalid %}
-                <div class="msgs">
-	          <div class='success-msgs'>
-	            {% with messages = get_flashed_messages() %}
-	              {% if messages %}
-	                {% for message in messages %}
-	                  <h3>{{ message }}</h3>
-	                  <a href="{{ url_for('login') }}">Login</a>
-	                {% endfor %}
-	              {% endif %}
-	            {% endwith %}
-		  </div>
-	        </div>
-	      {% endif %}
-            </div>
-	  </td>
-        </tr>
-      </table>
-
-      <div class="msg-section">
-	<div class="msgs">
-	  {% if isInvalid %}
-	    <div class='warning-msgs'>
-	      {% with messages = get_flashed_messages() %}
-	        {% if messages %}
-	          {% for message in messages %}
-	            <h3>{{ message }}</h3>
-	          {% endfor %}
-	        {% endif %}
-	      {% endwith %}
-	    </div>
-	  {% endif %}
-	</div>
-
-      </div>
-    </div>
-
-=======
       <div class ="login-reg-main">
          <div class='form-section' id="login-section">
          </div>
-
       </div>
->>>>>>> master
   </section>
   
   

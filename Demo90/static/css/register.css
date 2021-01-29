@@ -11,19 +11,7 @@
 @font-face {
    src: url(../fonts/HelveticaNeue/);
 }
-<<<<<<< HEAD
 
-body {
-   background: url(../assets/onboarding_background_001.png) no-repeat center center;
-   /*background-image: src() */
-   background-size: cover;
-   /*height: 100%;*/
-
-   /* for debugging*/
-   /*overflow: visible;*/
-}
-
-=======
 body {
    height:100%;
    margin: 0;
@@ -97,7 +85,6 @@ body {
 .login-reg-main{
    margin-top:-3%;
 }
->>>>>>> master
 button:focus {
    outline: none;
 }
@@ -205,16 +192,13 @@ td{
 .header {
    height: auto;
 }
-<<<<<<< HEAD
 
-=======
 /*
->>>>>>> master
 .login-reg-main {
    margin-left: 20%;
    padding-right: 20px;
 }
-* */
+ */
 
 .msg-section {
    margin-left: 150px;

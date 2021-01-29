@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-/* Check length of first name; ensure it is not blank */
-/* Check length of email; ensure it is not blank; ensure it is in the right format */
-
-
-/* Password Visibility (Icons) */
-
-=======
 var uid;
 var token;
 var logout;
@@ -72,7 +64,6 @@ function createAccount(){
 /* Check length of first name; ensure it is not blank */
 /* Check length of email; ensure it is not blank; ensure it is in the right format */
 /* Password Visibility (Icons) */
->>>>>>> master
 function showPassword1() {
   var x = document.getElementById("password");
   if (x.type === "password") {
@@ -92,9 +83,6 @@ function showPassword2() {
 }
 
 /* Check if passwords match and disable button */
-<<<<<<< HEAD
-
-=======
 function validatePasswordsMatch(){
 	console.log('validatePasswordsMatch ');
 	var n1 =document.getElementById('password').value;
@@ -105,7 +93,6 @@ function validatePasswordsMatch(){
 	}
 }
 /*the below is for future use */
->>>>>>> master
 function checkPwMatch() {
   var pw1 = document.getElementById("password");
   var pw2 = document.getElementById("re-enterPassword");
@@ -143,48 +130,15 @@ function checkPwMatch() {
       warningMsgs.style.display = "block";
     }
     //else {}
-<<<<<<< HEAD
-    console.log("passwords do not match!")
-=======
     var msg = "Passwords do not match - please try again";
     console.log(msg);
     alert(msg);
->>>>>>> master
     return false;
   }
 }
 //Login and get Token
 //EX: curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"some@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login'
 
-<<<<<<< HEAD
-
-/*  - what if I listen for an event to occur (such as the success message popping up) before actually sending this?
-        - if success message (green), then send; if error message (red), then don't send
-    - Seems like the easiest way to do this is going to be to add some more client side validation to ensure the form 
-      doesn't actually submit until the user has properly put in all the information
-        - what about if the client side fails to check properly? Or what if the client side check passes and the 
-	  server side check fails?
-        - if being sent only after the client side is validated, might be trying to post new information even though 
-	  the server checks failed which then makes it invalid information
-    - I could try to see what happens when I try to get a user account from the AWS server using the email (which 
-      should be unique)
-        - if it exists, I don't submit it; if it doesn't exist, I am free to try to submit it 
-          (assuming all other validations pass; might need to add more client side validation for this) 
-
-    - Ok, let's just start off with some client-side checking to prevent the form from being sent at all if the inputs are invalid 
-	- once this is successful, we will improve from there */
-
-  //Login and get Token
-  //EX: curl -v -X POST -H "Content-Type: application/json" -d '{"user_email":"some@email.com","password":"abc"}' 'https://beo7gqvf3j.execute-api.us-east-2.amazonaws.com/production/login'
-
-
-	
-//function validate() {// if validInputs returns true, send the registerUser request;ƒ otherwise, ???}
-
-
-=======
-	
->>>>>>> master
 function validateInputs() {
   // if validations pass, send the request to AWS
   var first = document.getElementById("firstName").value;
@@ -342,37 +296,24 @@ function sendRegReq() {
   var last = document.getElementById("lastName").value;
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
-<<<<<<< HEAD
-
-  var isValid = validateInputs();
-  // validate the inputs
-  if (isValid) {
-    // verify the email does not already exist?
-    // send POST request
-    registerUser(first, last, email, password);
-    return true
-  }
-  return false
-  //return isValid;
-=======
   
   if(first == '' || last == '' || email == ''|| password == ''){
-      alert("You must fill out the fields!");
+      alert("you must fill out the fields!");
       return false;
   }
   
-  var term = document.getElementById("agree-term").checked;
-  var privacyTerm = document.getElementById("privacy-term").checked;
-  var ageTerm = document.getElementById("age-term").checked;
+  var term = document.getelementbyid("agree-term").checked;
+  var privacyterm = document.getelementbyid("privacy-term").checked;
+  var ageterm = document.getelementbyid("age-term").checked;
   
-  console.log("Validating request: " + term +":"+ privacyTerm +": "+ ageTerm);
+  console.log("validating request: " + term +":"+ privacyterm +": "+ ageterm);
   
-  if(term == false || privacyTerm == false || ageTerm == false){
-      alert("You must agree to Terms and Conditions first!");
+  if(term == false || privacyterm == false || ageterm == false){
+      alert("you must agree to terms and conditions first!");
       return false;
   }else{
 
-    var isValid = validateInputs();
+    var isvalid = validateinputs();
     // validate the inputs
     if (isValid) {
       // verify the email does not already exist?
@@ -420,7 +361,6 @@ function validateEmail(em) {
         console.log('eEmail validated!');
       }
     }
->>>>>>> master
 }
 
 function testSubmit() {
