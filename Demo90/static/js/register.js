@@ -34,7 +34,7 @@ function createAccount(){
   
   const priv1 ='<div class="term" >';
   const priv2 ='<input id="privacy-term" name="privacy-term" type="checkbox" required></input>';
-  const priv3 ='<label  for="privacy-term"><a href=/static/assets/"drs-privacy-policy.md" style="color:#fff"  target="_blank">Privacy Policy</a></label></div>';
+  const priv3 ='<label  for="privacy-term"><a href=/static/assets/drs-privacy-policy.md style="color:#fff"  target="_blank">Privacy Policy</a></label></div>';
   const privTerm = priv1+priv2+priv3;
   
   const age1 = '<div class="term">'
@@ -49,7 +49,7 @@ function createAccount(){
 	const footer = foot1+foot2+foot3;
   
   const wMsg1 = '<div class="msg-section" style="display:none"><div class="msgs"><div class="warning-msgs"></div></div><div>';
-  const sMsg = '<div class="msgs" style="display:none"><div class="success-msgs"><h3>{{ message }}</h3><a href="http://localhost:5000">Login</a></div></div>';    
+  const sMsg = '<div class="msgs" style="display:none"><div class="success-msgs"><h3></h3><a href="http://localhost:5000">Login</a></div></div>';    
       
       
   var regHtml = row0+row1+row2+row3+row4+row5+row6+terms+privTerm+ageTerm+footer+wMsg1+sMsg;
@@ -247,24 +247,26 @@ function registerUser(first, last, email, password){
   xhr.setRequestHeader('Content-Type','application/json');
 
   xhr.onreadystatechange = function(){
-    console.log("Welcome to registerUpload!")
+    console.log("Welcome to register Upload!")
     if (this.readyState === XMLHttpRequest.DONE && this.status === 201){
       var token = this.response;
       console.log("Register response: " + token);
-      alert(token);
-      //var msg = 'User Created' 
-      //console.log(msg);
-      //alert(msg);
+      //alert(token);
+      
+      var msg = 'User Created' 
+      console.log(msg);
+      alert(msg);
+      window.location.href="http://localhost:5000";
       //getUploadURL(token, file, desc);
     }
     if (this.readyState === XMLHttpRequest.DONE && this.status === 202){
       var token = this.response;
       console.log("Register response: " + token);
-      alert(token);
-      //var msg = 'This user already exists. Please try again.';
-      //console.log(msg);
-      //alert(msg);
-      //return false;
+      //alert(token);
+      var msg = 'This user already exists. Please try again.';
+      console.log(msg);
+      alert(msg);
+      return false;
       //getUploadURL(token, file, desc);
     }
     if (this.readyState === XMLHttpRequest.DONE && this.status != 201 && this.status != 202){

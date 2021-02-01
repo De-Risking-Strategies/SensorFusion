@@ -22,8 +22,13 @@ body {
    color:gray;
    min-height: 100%;
    margin: 0; 
-   overflow: auto;
+   overflow-y: auto;
+
 }
+button:focus {
+   outline: none;
+}	
+
 .grid{
    display:grid;
    position:absolute;
@@ -63,7 +68,7 @@ body {
    position: absolute;
     -webkit-background-size: cover;
     width: 100%;
-    top: 9%;
+    top: 12%;
 }
 .footer{
    border-bottom-left-radius:5px;
@@ -77,6 +82,12 @@ body {
    
    height:100%;
    background-color:#212121;
+}
+input:hover{
+   border-color: #bb86fc
+}
+a:hover{
+   color: #bb86fc
 }
 .login-reg-background{
    height:100%;

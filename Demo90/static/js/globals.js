@@ -10,7 +10,7 @@ function checkToken(){
 	uid=getCookie('uid');
 	token=getCookie('token');  
   logout=getCookie('logout');
-	console.log('Check user login:'+uid+':'+token);
+  console.log('Check user login:'+uid+':'+token);
 	
   if(logout != 'forgot'){
     if(token != ""){
@@ -19,7 +19,8 @@ function checkToken(){
      createLogin();//login.js
     }
   }else{
-    forgotPassword();//login.js
+    forgotPasswordEmail();//login.js
+    
   }
 }
 
