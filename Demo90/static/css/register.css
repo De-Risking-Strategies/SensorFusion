@@ -28,25 +28,18 @@ body {
 button:focus {
    outline: none;
 }
-
+/*
 h2 {
    color: white;
-   font-size: 30px;
+   padding: 10px 10px;
+}
+*/
+h2 {
+   color: white;
+   font-size: 1.1em;
    padding: 10px 0;
 }
-.iBox{
-   background-color: #444444;
-   border-bottom: 7px #bb86fc solid;
-}
 
-.input {
-   background-color: transparent;
-   border: none;
-   color: white;
-   font-size: 100%;
-   margin-top: 5px;
-   padding: 0;
-}
 
 input {
    border: none;
@@ -86,6 +79,16 @@ label {
    margin:1px;
    padding:1px;
 }
+/*
+p, span{
+  
+   color:white
+}
+*/
+table{
+   border-collapse: separate;
+   border-spacing: 0 15px;
+}
 td{
    border-bottom: 5px #bb86fc solid;
    background-color: #444444;
@@ -105,7 +108,7 @@ td{
 
 }
 .chkbox-group {
-   padding-bottom: 25px;
+   padding: 5px 0;
 }
 
 .footer{
@@ -124,8 +127,6 @@ td{
 
 .form-section {
    align-items: center;
-   box-sizing: border-box;
-   margin-bottom: 7px;
    padding: 2px 6px;
 }
 
@@ -165,6 +166,24 @@ td{
    height: auto;
 }
 */
+.iBox{
+   align-items: center;
+   background-color: #444444;
+   border-bottom: 7px #bb86fc solid;
+   /*box-sizing: border-box;*/
+   /*margin-bottom: 7px;*/
+   padding: 2px 6px;
+
+}
+
+.input {
+   background-color: transparent;
+   border: none;
+   color: white;
+   font-size: 100%;
+   margin-top: 5px;
+   padding: 0;
+}
 .login-logo {
     position: fixed;
     top: 0px;
@@ -174,7 +193,7 @@ td{
    height:100%;
 }
 .login-reg-main{
-   margin-top:-3%;
+   /*margin-top:-3%;*/
 }
 
 /*
@@ -284,7 +303,7 @@ td{
    width: 250px;
 
    /* positoining of tip box */
-   right: -116%;
+   right: -98.5%;
    margin-left: -60px;
    position: absolute;
    top: -120%;
@@ -333,16 +352,6 @@ td{
    margin-right: 20px;
 }
 
-.terms {
-   border: 1px #444444 solid;
-   background-color: #111111;
-   box-sizing: border-box;
-   color: white;
-   font-size: 16px;
-   padding: 5px 20px 10px 20px;
-   width: 100%;
-}
-
 .term input[type='checkbox'] {
    display: none;
 }
@@ -373,7 +382,22 @@ td{
    vertical-align: top;
    width: 10px;
 }
+.term-btns {
+   padding-top: 7px;
+}
 
+.terms {
+   border: 1px #444444 solid;
+   background-color: #111111;
+   box-sizing: border-box;
+   color: white;
+   /*font-size: 16px;*/
+   padding: 15px 20px 20px 20px;
+   /*padding: 25px 20px;*/
+   width: 100%;
+}
+
+.terms a,
 .terms a:link,
 .terms a:hover,
 .terms a:visited, 
@@ -449,18 +473,6 @@ td{
    position:fixed;
    bottom: 0px;
    font-size: .4em;
-}
-p, span{
-  
-   color:white
-}
-table{
-   border-collapse: separate;
-   border-spacing: 0 15px;
-}
-h2 {
-   color: white;
-   padding: 10px 10px;
 }
 @media only screen and (max-width: 800px) {
    body{
