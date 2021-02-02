@@ -5,9 +5,11 @@ var logout;
 var input;
 //NOTE - Generic validation is in the globals.js file where functions are shared by login and index
 function initLogin(){
-	checkToken();//In globals.js
+
+    checkToken();//In globals.js
 }
 function forgotPasswordEmail(){
+    setCookie('logout', 'forgot', 1);
     const forgotPwdEmail = document.getElementById("login-section");
     const row0 = '<table border="0"><h2>Forgot Password</h2>';
     const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress"  placeholder="youremail@address.com" maxlength="256" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
@@ -47,19 +49,23 @@ function createLogin(){
     const row0 = '<table border="0"><h2>Log In</h2>';
     const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress" type="text" placeholder="youremail@address.com" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
     const row2 = '<tr><td id="ic2"><span >Password</span><br/><input class="input" id="pass" type="password" type="password" placeholder="your password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false" onblur=""></input></td></tr>';
-    const row3 = '</table><br/>';
-    const row4 = '<input class="btn" id="Signin" type="button" onClick="signin()" value="SIGN IN"></input><br/>';
-    const row5 = '<a onClick="forgotPasswordEmail();"><p>FORGOT PASSWORD</p></a>';
-    const row6 = '<a href="http://localhost:5000/reset"><p>RESET PASSWORD</p></a>';
-    const row7 = '<a href="http://localhost:5000/register"><p>CREATE ACCOUNT</p></a>';
-    const row8 = '</table>'  
+    const row3 = '</table>';
+    const row4 = '<input class="btn" id="Signin-btn" type="button" onClick="signin()" value="SIGN IN"></input>&nbsp;&nbsp;&nbsp;';
+    const row5 = '<input class="btn" id="Skip-btn" type="button" onClick="skip()" value="SKIP TO SENSOR FUSION"></input>';
+    const row6 = '<a href="" onClick="forgotPasswordEmail();"><p>FORGOT PASSWORD</a>';
+    const row7 = '<a href="http://localhost:5000/reset"><p>RESET PASSWORD</p></a>';
+    const row8 = '<a href="http://localhost:5000/register"><p>CREATE ACCOUNT</a>';
+      
 	var lHtml = row0+row1+row2+row3+row4+row5+row6+row7+row8;
     login.innerHTML  = lHtml;
 	var input = document.addEventListener("keyup", function(event){
 		if(event.keyCode == 13){
-		document.getElementById('Signin').click();
+		document.getElementById('Signin-btn').click();
 		}
 	});
+}
+function skip(){
+  window.location.href='http://localhost:5000/sf?i=skip';
 }
 function signin(){
 	console.log('Get a Token');
@@ -74,7 +80,11 @@ function logOut(type){
       setCookie('uid','',1);
       setCookie('token','',1);
       setCookie('logout', type, 1);
-      window.location.href ='http://localhost:5000';
+      if(type == 'r'){
+	window.location.href ='http://localhost:5000/register';
+      }else{
+	window.location.href ='http://localhost:5000';
+      }
 }
 function resetPasswordEmail(email){
 /* THIS IS STEP 1 OF 2 - STEP 2 IN pwdreset.html
@@ -96,7 +106,7 @@ Needs the 3 specified fields for it to do the reset.
       var resetPasswordResponse = this.response;
       console.log('Change Password URL Response: '+ resetPasswordResponse);
       // now open Password Reset Page
-      msg = 'Check your email for a Reset Code. \n, In Sensor Fusion, click `RESET PASSWORD` to change it with the Cpde. \n\nThe Reset Code will last for 1 hour';
+      msg = 'Check your email for a Reset Code. \nIn Sensor Fusion, click `RESET PASSWORD` to change it with the Code. \n\nThe Reset Code will last for 1 hour';
       alert(msg);
       window.location.href = 'http://localhost:5000';
     }

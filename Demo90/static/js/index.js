@@ -38,6 +38,18 @@ function init(){
 	uid=getCookie('uid');
 	token=getCookie('token'); 
 	password=getCookie('password'); 
+  
+// check Free Trial
+var url= window.location.href;
+
+var sfSkip = url.split('?')[1];
+console.log('Check Skip:'+sfSkip);
+
+if(sfSkip == 'i=skip'){
+  uid = 'GUEST';
+  var d = createTimeStamp();
+  token = 'skip-'+d;
+}
 
 if(token != "" && uid != ""){
   console.log('Login checked');  
@@ -90,8 +102,8 @@ if(token != "" && uid != ""){
     if (modalOpen == false){
       if(e.keyCode =='32'){//SPACEBAR
           modal1_click('annotate');
-        }else if(e.keyCode == '81'){//Q
-          postAPI('quit');
+        //}else if(e.keyCode == '81'){//Q
+        //  postAPI('quit');
         }else if(e.keyCode == '70'){
           postAPI('fps')
         } 
@@ -337,7 +349,10 @@ function postAPI(command) {
       console.log('quitting');
       setCookie('uid',null,1);
       setCookie('token',null,1);
-      timeRefresh(0);//Reload broswer
+      var path = window.location.pathname;
+      if(path !="/"){
+        timeRefresh(0);//Reload broswer if not on the Index page
+      }
     }
    if(command == 'kill_tesnorFlow'){
       console.log('kill_tesnorFlow');
@@ -410,6 +425,8 @@ function modal1_click(event){
   var modal1 = document.getElementById("modal_body1");
   var modal2 = document.getElementById("modal_body2");
   var ftr = document.getElementById("modal_footer");
+  
+  
   var mTitle= 'Not Implemented Yet'; 
   var mHtml1='<br><strong>Please come back soon!</strong>'; 
   var mHtml2= '<br>';
@@ -418,21 +435,27 @@ function modal1_click(event){
   if(event =='annotate'){
     postAPI('kill_tesnorFlow');
     mTitle = 'Capture Images for Annotation';
-    mHtml1 ='<br><strong>Name, Number and Description</strong><br>';
+    mHtml1 ='<strong>Enter a Directory Name and Number of Images to Capture </strong><br/><br/>';
     
     //Annotation Form - values to pass to Flask/Python
     var row0 = '<table border="1">';
-    var row1 = '<tr><td id="ic1">Name</td><td id="ic2"><input id="aName" type="text" style="width:150px" onchange="checkDirectoryExists(this)" autofocus></input><br/>';
-    var row2 = '<strong style="color:red">Files are saved in /home/pi/SensorFusion/name</strong></td></tr>';
-    var row3 = '<tr><td id="ic3">Images to Capture</td><td id="ic4"><input id="aImages" type="text" style="width:50px">&nbsp;2,000 MAX!</input></td></tr>';
+    var row1 = '<tr><td id="ic1">Directory Name</td><td id="ic2"><br/><input id="aName" type="text" style="width:250px" onchange="checkDirectoryExists(this)" autofocus></input><br/><br/>';
+    var row2 = '<strong style="color:red">Files are saved in /home/pi/SensorFusion/Directory Name</strong><br/><br/></td></tr>';
+    var row3 = '<tr><td id="ic3">Images to Capture</td><br/><td id="ic4"><input id="aImages" type="text" style="width:250px"><br/>2,000 Images MAX!</input><br/></td></tr>';
     //moved to Upload
     //var row4 = '<tr><td id="ic5">Description</td><td id="ic6"><input id="aDescription" type="text" style="width:300px"></input></td></tr>';
     var row5 = '</table>'
-    var row6 = "<br><input type='button' value='Submit' onclick=postAPI('annotate')>";
+    var row6 = "<br/><br/><input type='button' value='Submit' onclick=postAPI('annotate')>";
     mHtml2 = row0+row1+row2+row3+row5+row6;
   }
-  
   if(event == 'upload'){
+    //SKIP TO SENSOR FUSION
+  if(uid == 'GUEST'){
+    alert('You must register and sign in to upload Annotated images!');
+    
+    return false;    
+  }else{
+    
     //Upload Form - values to pass to Server
     postAPI('kill_tesnorFlow');
     mTitle = 'Capture Images to Annotate<br/><small>Use Main Menu 4 to Label, Menu 8 to Zip your Package!</small>';
@@ -446,7 +469,8 @@ function modal1_click(event){
     var row6 = '</table>'
     var row7 = "<br><button type='button' value='Upload' onclick=validateUpload();>Upload</a>";
     mHtml2 = row0+row1+row2+row3+row4+row5+row6+row7;
-  }
+    }
+  }//skip
   //Draw the Modal
   hdr.innerHTML  = mTitle
   modal1.innerHTML = mHtml1;
@@ -477,6 +501,9 @@ function modal1_click(event){
       document.getElementById("filePicked").innerHTML = fName;
     })
   }
+  
+
+
 }
 function uploadImages(){
   switchTrainImageOn();
@@ -521,6 +548,7 @@ function validateUpload(){
     }else{
       txt = 'Cancelled Uploading Sensor Fusion Package';
     }
+  
 }
 
 function addCamera(){
@@ -531,13 +559,13 @@ function addCamera(){
   videoStream.src ="/video_feed";
   videoStream.style.width = "100%";
   videoStream.style.display = "block";
+  //SENSOR 1 CAMERA  
   document.getElementById('camera1Div').appendChild(videoStream);
-  
-  //For Javascript debugging, comment the line above and uncomment the lines below
-  //var nullStream = document.createElement('img');
-  //nullStream.style.display = "none";
-  //document.getElementById('camera1Div').appendChild(nullStream);//for debugging
-   
+  //DEBUG: For Javascript debugging, comment the line above and uncomment the lines below
+  /*var nullStream = document.createElement('img');
+  nullStream.style.display = "none";
+  document.getElementById('camera1Div').appendChild(nullStream);//for debugging
+  */ 
 }
 
 

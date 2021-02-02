@@ -3,7 +3,7 @@
 # (C) 2020 - De-Risking Strategies, LLC #
 # DRS ML/AI Flask API                   #
 # Authors: Pushkar K / Drew A           #
-# Updated 01-26-2021  See CHANGELOG.md  #
+# Updated 01-29-2021  See CHANGELOG.md  #
 #########################################
 import os
 import argparse
@@ -25,7 +25,6 @@ import pickle
 
 
 from sfui import widgets #custom package
-
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 #Disable Flask Cache as it interferes with streaming
@@ -54,18 +53,27 @@ fps_flag = False #showing frames per second is false by default - controlled by 
 
 @app.route('/sf',methods=['GET'])
 def index():
+   try:
+    sfSkip = request.args.get('i')# get querystring
+    print('Skip: '+ sfSkip) 
+   except:
+    pass
+        
    video_camera_flag = True
+   os.environ['quit_flag'] = "run"
    #On a reload
+   print('Quit and Reload')
    quit_flag = os.environ.get('quit_flag')
    if quit_flag == 'quit':#
-       cv2.destroyAllWindows() # not needed!
+       cv2.destroyAllWindows() # 
        try:
            if videostream:
              #videostream.release()
              videostream.stop()
        except:
            pass
-   return render_template('index.html' )
+   
+   return render_template('index.html',i=sfSkip )
  
 
 @app.route('/api', methods = ['GET','POST'])
@@ -199,6 +207,9 @@ def api():
 @app.route('/') 
 def login():
    embedVar='Login'
+   
+   os.environ['quit_flag'] = "quit"
+   print('Quit command on Login')
    return render_template('login.html',embed=embedVar )
 
 @app.route('/register') 
@@ -619,9 +630,9 @@ def gen_frames():
             # Press 'q' to quit
             quit_flag = os.environ.get('quit_flag')
             if quit_flag == 'quit':#
+                print('Quit from Q command')
                 os.environ['quit_flag'] = ''
-                print("CV2 Quit " + quit_flag)
-                #cv2.destroyAllWindows()
+                #cv2.destroyAllWindows()# DO NOT USE!
                 if videostream:
                     #videostream.release()
                     videostream.stop()
