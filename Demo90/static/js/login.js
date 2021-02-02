@@ -46,7 +46,7 @@ function createLogin(){
     const login = document.getElementById("login-section");
     const row0 = '<table border="0"><h2>Log In</h2>';
     const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress" type="text" placeholder="your@email.com" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
-    const row2 = '<tr><td id="ic2"><span >Password</span><br/><div class="with-eye"><div class="extend-input"><input class="input" id="pass" type="password" type="password" placeholder="Password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false" onblur=""></div><div class="visibility-icon"><input id="pswd-vis" type="checkbox" onclick="showPassword2()"><label for="pswd-vis"></label></div></div></td></tr>';
+    const row2 = '<tr><td id="ic2"><span >Password</span><br/><div class="with-eye"><div class="extend-input"><input class="input" id="pass" type="password" type="password" placeholder="Password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false" onblur=""></div><div class="visibility-icon"><input id="pswd-vis" type="checkbox" onclick="showPassword()"><label for="pswd-vis"></label></div></div></td></tr>';
     const row3 = '</table><br/>';
     const row4 = '<input class="btn" id="Signin" type="button" onClick="signin()" value="SIGN IN"></input><br/>';
     const row5 = '<a onClick="forgotPasswordEmail();"><p>FORGOT PASSWORD</p></a>';
@@ -216,5 +216,14 @@ function putUpload(upLoadURL, file){
   }
   xhr3.send(fileObject);
 
+}
+
+function showPassword() {
+  var x = document.getElementById("pass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
 }
 
