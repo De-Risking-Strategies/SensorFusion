@@ -24,6 +24,12 @@ body {
    margin: 0; 
    overflow: hidden;
 }
+
+input {
+   width: 100%;
+}
+
+
 .grid{
    display:grid;
    position:absolute;
@@ -101,6 +107,10 @@ a{
    color:white;
    font-size: .4em;
    text-decoration:none;
+   cursor: pointer;
+}
+a:hover {
+   text-decoration: underline lightgray;
 }
 .input {
    background-color: transparent;
@@ -111,7 +121,7 @@ a{
    padding: 0;
 }
 ::placeholder{
-   color:white;
+   color: darkgray;
    opacity:1;
    padding:3px;
    margin:2px;
@@ -148,12 +158,15 @@ h2 {
    border-radius: 5px;
    width: 120px;
    color: white;
+   cursor: pointer;
 }
 
 .chkbox-group {
    padding-bottom: 25px;
 }
-
+.extend-input {
+   width: 100%;
+}
 .form-section {
     box-sizing: border-box;
     align-items: center;
@@ -184,7 +197,6 @@ td{
    margin-left: 20%;
 }
 
-.
 .visibility-icon input[type='checkbox'] {
    display: none;
 }
@@ -194,14 +206,18 @@ td{
    height: 20px;
    width: 30px;
    cursor: pointer;
-   background: url(../assets/sensor_eye_icon_001.png) no-repeat center center;
+   background: url(../assets/password_eye_001.png) no-repeat center center;
    background-size: contain;
+   opacity: 0.5;
+   border-color: white;
 }
 
 .visibility-icon input[type='checkbox']:checked + label {
-   background: none;
-   background-color: black;
-   border-color: white;
+   background: url(../assets/password_eye_001.png) no-repeat center center;
+   background-size: contain;
+   cursor: pointer;
+   display: block;
+   opacity: 1.0;
    height: 20px;
    width: 30px;
 }

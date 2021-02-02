@@ -37,7 +37,7 @@ h2 {
 h2 {
    color: white;
    font-size: 1.1em;
-   padding: 10px 0;
+   padding: 10px;
 }
 
 
@@ -236,7 +236,7 @@ td{
 }
 
 ::placeholder{
-   color:white;
+   color: darkgray;
    opacity:1;
    padding:3px;
    margin:2px;
@@ -407,7 +407,7 @@ td{
    font-size: 14px;
    font-weight: bold;
    outline: none;
-   padding: 5px 15px;
+   margin: 5px 15px;
    text-decoration: none;
 }
 

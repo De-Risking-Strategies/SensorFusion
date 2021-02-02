@@ -10,7 +10,7 @@ function initLogin(){
 function forgotPasswordEmail(){
     const forgotPwdEmail = document.getElementById("login-section");
     const row0 = '<table border="0"><h2>Forgot Password</h2>';
-    const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress"  placeholder="youremail@address.com" maxlength="256" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
+    const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress"  placeholder="your@email.com" maxlength="256" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
     const row2 = '</table>';
     const row3 = '<input class="btn" id="EmailPasswordKey" type="button" onClick="changePassword();" value="EMAIL CODE"></input><br/>';
     const row4 = '<a onclick="createLogin(); return false"><p>SIGN IN</p></a>';
@@ -45,8 +45,8 @@ function changePassword(n1){
 function createLogin(){
     const login = document.getElementById("login-section");
     const row0 = '<table border="0"><h2>Log In</h2>';
-    const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress" type="text" placeholder="youremail@address.com" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
-    const row2 = '<tr><td id="ic2"><span >Password</span><br/><input class="input" id="pass" type="password" type="password" placeholder="your password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false" onblur=""></input></td></tr>';
+    const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress" type="text" placeholder="your@email.com" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
+    const row2 = '<tr><td id="ic2"><span >Password</span><br/><div class="with-eye"><div class="extend-input"><input class="input" id="pass" type="password" type="password" placeholder="Password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false" onblur=""></div><div class="visibility-icon"><input id="pswd-vis" type="checkbox" onclick="showPassword2()"><label for="pswd-vis"></label></div></div></td></tr>';
     const row3 = '</table><br/>';
     const row4 = '<input class="btn" id="Signin" type="button" onClick="signin()" value="SIGN IN"></input><br/>';
     const row5 = '<a onClick="forgotPasswordEmail();"><p>FORGOT PASSWORD</p></a>';
