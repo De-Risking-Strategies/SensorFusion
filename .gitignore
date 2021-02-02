@@ -10,6 +10,7 @@
 **/logs
 **/Demo90-env/
 **/checkid-env/
+**/__pycache__/
 **/__Pycache__/
 **/SF-env/
 Bookshelf/
@@ -40,4 +41,7 @@ scratch.txt
 project-posenet-master/models/
 webcam.lo
 venv/
-
+DRS Sensor Fusion Client Setup
+install_Demo.90.sh
+pose_estimate_installation.sh
+tflite_thermal_live_installation.sh
