@@ -41,6 +41,9 @@ scratch.txt
 project-posenet-master/models/
 webcam.lo
 venv/
+Demo90/__pycache__/config.cpython-37.pyc
+Demo90/sfui/__pycache__/__init__.cpython-37.pyc
+Demo90/sfui/__pycache__/widgets.cpython-37.pyc
 DRS Sensor Fusion Client Setup
 install_Demo.90.sh
 pose_estimate_installation.sh
