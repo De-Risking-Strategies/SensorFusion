@@ -8,7 +8,7 @@ function initReg(){
 }
 function createAccount(){
 	var forgot = document.getElementById("login-section");
- 	const row0 = '<br/><h2>Create New Account</h2><div>';
+ 	const row0 = '<h2>Create New Account</h2><div>';
   // row1
   const row1 = '<br><div class="iBox"><label for="firstName">First</label><input id="firstName" name="first" placeholder="First name" maxlength="128" autofocus></input></div>';
   // row2
