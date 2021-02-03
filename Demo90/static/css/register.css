@@ -1,3 +1,5 @@
+/* register.css */
+
 @font-face {
    src: url(../fonts/Roboto/Roboto-Light.ttf);
    font-family: Roboto;
@@ -203,6 +205,15 @@ td{
    padding-right: 20px;
 }
  */
+.logo{
+  position:fixed;
+  top: .5%;
+  left: .5%;
+  max-width: 100%;
+  max-height:100%;
+  display:block;
+
+}
 .main{
   /*border-radius:5px;*/
    grid-column:1/4;
@@ -333,6 +344,20 @@ td{
    visibility: visible;
 }
 
+.reg-foot-text{
+   text-align:center;
+   width:100%;
+   position:fixed;
+   bottom: 0px;
+   font-size: .4em;
+}
+
+.reg-logo{
+   position:fixed;
+   top:0px;
+   left:0px;
+}
+
 .success-msgs {
    color: green;
    font-size: 14px;
@@ -453,28 +478,6 @@ td{
 }
 
 
-.reg-logo{
-   position:fixed;
-   top:0px;
-   left:0px;
-}
-.logo{
-  position:fixed;
-  top: .5%;
-  left: .5%;
-  max-width: 100%;
-  max-height:100%;
-  display:block;
-
-}
-
-.reg-foot-text{
-   text-align:center;
-   width:100%;
-   position:fixed;
-   bottom: 0px;
-   font-size: .4em;
-}
 @media only screen and (max-width: 800px) {
    body{
       font-size:.9em;
