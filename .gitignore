@@ -10,6 +10,7 @@
 **/logs
 **/Demo90-env/
 **/checkid-env/
+**/__pycache__/
 **/__Pycache__/
 **/SF-env/
 Bookshelf/
@@ -43,3 +44,7 @@ venv/
 Demo90/__pycache__/config.cpython-37.pyc
 Demo90/sfui/__pycache__/__init__.cpython-37.pyc
 Demo90/sfui/__pycache__/widgets.cpython-37.pyc
+DRS Sensor Fusion Client Setup
+install_Demo.90.sh
+pose_estimate_installation.sh
+tflite_thermal_live_installation.sh

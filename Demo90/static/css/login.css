@@ -81,6 +81,20 @@ input {
    height:100%;
    background-color:#212121;
 }
+#Signin-btn{
+   min-width: 90px;
+}
+#Skip-btn{
+   min-width: 220px;
+   overflow: hidden;
+
+}
+input:hover{
+   border-color: #bb86fc
+}
+a:hover{
+   color: #bb86fc
+}
 .login-reg-background{
    height:100%;
 }
@@ -140,7 +154,11 @@ a:hover {
 }
 p{
    font-size:1.2em;
-   color:white
+   color:white;
+   
+}
+p:hover{
+   color: #bb86fc
 }
 table{
    border-collapse: separate;

@@ -5,7 +5,22 @@
 ## SENSOR FUSION CHANGELOG                     
 ----
 
-## January 26, 2021 - Registration , Login, Forgot Password, Reset Password, Privacy Policy, TOC and Age Terms included 
+## February 2, 2021 - Pushkar Cleanup
+- Cleaned up unnecessary files and updated gitignore.
+
+## February 1, 2021 - RE-Login implemented, 'SKIP TO SENSOR FUSION' added, Top Toolbar fixups, Added Registration to settings
+1. Made it possible to Re-Login again and suppors multiple users 
+2. Added a 'SKIP TO SENSOR FUSION' feature that allows you to login and perform all actions except Uploading files
+3. Privacy Policy Link fixed
+4. Login Page Forgot Password Hover vixed
+5. Added Terms of Service
+6. Improved top tool bar spacing
+7. Updated the Copyright notices to 2021
+8. Register page - hide passwords tag 
+9. Changed SKIP to a Button
+10. Added Button and Link purple outline on hover
+
+## January 26, 2021 - Final Candidate - Registration , Login, Forgot Password, Reset Password, Privacy Policy, TOC and Age Terms included 
 >IMPORTANT - From this point forward, you will need to registration and then sign in to use the App.
 
 1. This update integrates the Login and Registration AWS API's, and changes the way the program is launched.  Now it launches to the Login page and forces you to register or login.

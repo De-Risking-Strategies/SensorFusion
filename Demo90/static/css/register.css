@@ -23,7 +23,8 @@ body {
    color:gray;
    min-height: 100%;
    margin: 0; 
-   overflow: auto;
+   overflow-y: auto;
+
 }
 button:focus {
    outline: none;
