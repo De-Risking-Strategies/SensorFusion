@@ -4,6 +4,10 @@
 
 ## SENSOR FUSION CHANGELOG                     
 ----
+
+## February 8, 2021 - Fix bad merge issues
+- Fix issues with previous merge
+
 ## February 3, 2021 - Re-add password visibility functionality to login and password reset pages
 - Add password visilibility to login and passowrd reset pages
 - Add password hint bubble to password reset page
