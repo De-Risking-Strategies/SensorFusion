@@ -12,7 +12,7 @@ function forgotPasswordEmail(){
     setCookie('logout', 'forgot', 1);
     const forgotPwdEmail = document.getElementById("login-section");
     const row0 = '<table border="0"><h2>Forgot Password</h2>';
-    const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress"  placeholder="youremail@address.com" maxlength="256" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
+    const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress"  placeholder="your@email.com" maxlength="256" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
     const row2 = '</table>';
     const row3 = '<input class="btn" id="EmailPasswordKey" type="button" onClick="changePassword();" value="EMAIL CODE"></input><br/>';
     const row4 = '<a onclick="createLogin(); return false"><p>SIGN IN</p></a>';
@@ -47,6 +47,16 @@ function changePassword(n1){
 function createLogin(){
     const login = document.getElementById("login-section");
     const row0 = '<table border="0"><h2>Log In</h2>';
+    const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress" type="text" placeholder="your@email.com" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
+    const row2 = '<tr><td id="ic2"><span >Password</span><br/><div class="with-eye"><div class="extend-input"><input class="input" id="pass" type="password" type="password" placeholder="Password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false" onblur=""></div><div class="visibility-icon"><input id="pswd-vis" type="checkbox" onclick="showPassword()"><label for="pswd-vis"></label></div></div></td></tr>';
+    const row3 = '</table><br/>';
+    const row4 = '<input class="btn" id="Signin" type="button" onClick="signin()" value="SIGN IN"></input>';
+    const row5 = '<input class="btn" id="Skip-btn" type="button" onClick="skip()" value="SKIP TO SENSOR FUSION"></input>';
+    const row6 = '<a onClick="forgotPasswordEmail();"><p>FORGOT PASSWORD</p></a>';
+    const row7 = '<a href="http://localhost:5000/reset"><p>RESET PASSWORD</p></a>';
+    const row8 = '<a href="http://localhost:5000/register"><p>CREATE ACCOUNT</p></a>';
+    const row9 = '</table>'  
+/*
     const row1 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress" type="text" placeholder="youremail@address.com" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
     const row2 = '<tr><td id="ic2"><span >Password</span><br/><input class="input" id="pass" type="password" type="password" placeholder="your password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false" onblur=""></input></td></tr>';
     const row3 = '</table>';
@@ -55,8 +65,8 @@ function createLogin(){
     const row6 = '<a href="" onClick="forgotPasswordEmail();"><p>FORGOT PASSWORD</a>';
     const row7 = '<a href="http://localhost:5000/reset"><p>RESET PASSWORD</p></a>';
     const row8 = '<a href="http://localhost:5000/register"><p>CREATE ACCOUNT</a>';
-      
-	var lHtml = row0+row1+row2+row3+row4+row5+row6+row7+row8;
+      */
+	var lHtml = row0+row1+row2+row3+row4+row5+row6+row7+row8+row9;
     login.innerHTML  = lHtml;
 	var input = document.addEventListener("keyup", function(event){
 		if(event.keyCode == 13){
@@ -226,5 +236,14 @@ function putUpload(upLoadURL, file){
   }
   xhr3.send(fileObject);
 
+}
+
+function showPassword() {
+  var x = document.getElementById("pass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
 }
 
