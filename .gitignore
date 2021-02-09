@@ -48,3 +48,4 @@ DRS Sensor Fusion Client Setup
 install_Demo.90.sh
 pose_estimate_installation.sh
 tflite_thermal_live_installation.sh
+Demo90/model.obj
