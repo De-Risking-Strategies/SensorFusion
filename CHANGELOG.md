@@ -5,9 +5,6 @@
 ## SENSOR FUSION CHANGELOG                     
 ----
 
-## February 2, 2021 - Pushkar Cleanup
-- Cleaned up unnecessary files and updated gitignore.
-
 ## February 1, 2021 - RE-Login implemented, 'SKIP TO SENSOR FUSION' added, Top Toolbar fixups, Added Registration to settings
 1. Made it possible to Re-Login again and suppors multiple users 
 2. Added a 'SKIP TO SENSOR FUSION' feature that allows you to login and perform all actions except Uploading files
