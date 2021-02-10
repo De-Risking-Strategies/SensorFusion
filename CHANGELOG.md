@@ -28,6 +28,18 @@
 - Cleaned up unnecessary files and updated gitignore.
 >>>>>>> master
 
+## February 8, 2021 - Fix bad merge issues
+- Fix issues with previous merge
+
+## February 3, 2021 - Re-add password visibility functionality to login and password reset pages
+- Add password visilibility to login and passowrd reset pages
+- Add password hint bubble to password reset page
+- Re-organize css stylesheets to be in alphabetical order
+
+## February 2, 2021 - Pushkar Cleanup
+- Cleaned up unnecessary files and updated gitignore.
+
+
 ## February 1, 2021 - RE-Login implemented, 'SKIP TO SENSOR FUSION' added, Top Toolbar fixups, Added Registration to settings
 1. Made it possible to Re-Login again and suppors multiple users 
 2. Added a 'SKIP TO SENSOR FUSION' feature that allows you to login and perform all actions except Uploading files
@@ -39,6 +51,7 @@
 8. Register page - hide passwords tag 
 9. Changed SKIP to a Button
 10. Added Button and Link purple outline on hover
+
 
 ## January 26, 2021 - Final Candidate - Registration , Login, Forgot Password, Reset Password, Privacy Policy, TOC and Age Terms included 
 >IMPORTANT - From this point forward, you will need to registration and then sign in to use the App.
