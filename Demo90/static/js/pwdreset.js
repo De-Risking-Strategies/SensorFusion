@@ -14,10 +14,6 @@ var input;
     const row2 = '<tr><td id="ic1"><span >Email </span><br/><input class="input" id="emailAddress" name="emailAddress"  placeholder="youremail@address.com" maxlength="256" autofocus onchange="validateEmail(this);return false"></input></td></tr>';
     const row3 = '<tr><td id="ic1"><span >New Password </span><br/><div class="with-eye pswd-tip"><div class="extend-input"><input class="input" id="newPwd" name="newPwd" type="password" placeholder="Enter a New password" type="password" minlength="6" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onchange="validatePassword(this);return false"></div>';
     const row4 = '<div class="visibility-icon"><input id="pswd-vis" type="checkbox" onclick="showPassword1()"><label for="pswd-vis"></label></div><span class="pswd-tip-text"><h3>Password requirements:</h3><h3 class="pswd-req">- must be at least 6 characters long</h3><h3 class="pswd-req">- must contain 1 capital letter</h3><h3 class="pswd-req">- must contain 1 lowercase letter</h3><h3 class="pswd-req">- must contain 1 number</h3><h3 class="pswd-req">- must contain 1 symbol</h3></span></td></tr>';
-<<<<<<< HEAD
-=======
-
->>>>>>> master
     const row5 = '<tr><td id="ic2"><span >Confirm New Password</span><br/><div class="with-eye"><div class="extend-input"><input class="input" id="newPwdConfirm" type="password" placeholder="Confirm New Passwrod" onchange="validatePassword(this);return false" onblur="validatePasswordsMatch();return false"></div><div class="visibility-icon"><input id="confirm-pswd-vis" type="checkbox" onclick="showPassword2()"><label for="confirm-pswd-vis"></label></div></td></tr>';
     const row6 = '</table><br/>';
     const row7 = '<input class="btn" id="changePassword" type="button" onClick="changePassword();" value="CHANGE"></input><br/>';
@@ -99,10 +95,6 @@ Needs the 3 specified fields for it to do the reset.
   }
   xhr3.send(body);
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 function showPassword1() {
   var x = document.getElementById("newPwd");
   if (x.type === "password") {
@@ -119,7 +111,4 @@ function showPassword2() {
     x.type = "password";
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> master

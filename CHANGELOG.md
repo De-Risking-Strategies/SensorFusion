@@ -5,7 +5,7 @@
 ## SENSOR FUSION CHANGELOG                     
 ----
 
-<<<<<<< HEAD
+
 ## Febuary 10, 2021 - Addressed the No TPU switching issuse, merged Puskar's PR37, Dara's PR41
 - The NO TPU mode was async processing so fast that the Quit in the loop never got triggered when switching models.  I added new code to the Flask postAPI commands 'c' and 'm' to force a destruction of the prior objects.
 - Matched the TFLite_detection_webcam_api.py core to the PR26 build, to repair the No TPU switching problems
@@ -15,7 +15,7 @@
   >Removed: PreLoadedModels/Model.01.Deer/Android/placeholder.txt, README.md, Raspberry_Pi_Guide.md, Sample_TFLite_model/detect.tflite and edgetpu.tflite 
   >Removed: PrelLoadedModels/Model101.Deer/Doc/*
 - Other minor tweaks in css
-=======
+
 ## February 8, 2021 - Fix bad merge issues
 - Fix issues with previous merge
 
@@ -26,7 +26,6 @@
 
 ## February 2, 2021 - Pushkar Cleanup
 - Cleaned up unnecessary files and updated gitignore.
->>>>>>> master
 
 ## February 8, 2021 - Fix bad merge issues
 - Fix issues with previous merge
