@@ -1,4 +1,3 @@
-
 .cache/
 .config/
 .local/
@@ -12,6 +11,7 @@
 **/checkid-env/
 **/__pycache__/
 **/__Pycache__/
+**/__pycache__/
 **/SF-env/
 Bookshelf/
 Desktop/
@@ -36,11 +36,17 @@ scratch.txt
 .vimrc
 .viminfo
 .gitignore.swp
-.gitignore.save.1
+.gitignore.save.*
 .idea/
 project-posenet-master/models/
 webcam.lo
 venv/
+<<<<<<< HEAD
+DRS Sensor Fusion Client Setup
+install_Demo.90.sh
+tflite_thermal_live_installation.sh
+
+=======
 Demo90/__pycache__/config.cpython-37.pyc
 Demo90/sfui/__pycache__/__init__.cpython-37.pyc
 Demo90/sfui/__pycache__/widgets.cpython-37.pyc
@@ -48,3 +54,4 @@ DRS Sensor Fusion Client Setup
 install_Demo.90.sh
 pose_estimate_installation.sh
 tflite_thermal_live_installation.sh
+>>>>>>> master

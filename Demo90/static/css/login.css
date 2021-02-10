@@ -11,13 +11,19 @@
 @font-face {
    src: url(../fonts/HelveticaNeue/);
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 a{
    color:white;
    font-size: .4em;
    text-decoration:none;
    cursor: pointer;
 }
+<<<<<<< HEAD
+
+=======
 a:hover{
    color: #bb86fc
 }
@@ -32,6 +38,7 @@ a:visited {
    color: white;
 }
 */
+>>>>>>> master
 body {
    height:100%;
    margin: 0;
@@ -55,14 +62,78 @@ input {
    width: 100%;
 }
 
+<<<<<<< HEAD
+input {
+   width: 100%;
+}
 input:hover{
    border-color: #bb86fc
 }
+a:hover{
+   color: #bb86fc
+}
+.login-reg-background{
+   height:100%;
+}
+.login-logo{
+   position:fixed;
+   top:0px;
+   left:0px;
+}
+.logo{
+   position:fixed;
+   top: .5%;
+   left: .5%;
+   max-width: 100%;
+   max-height:100%;
+   display:block;
+
+}
+=======
+input:hover{
+   border-color: #bb86fc
+}
+>>>>>>> master
 label {
    color: #bb86fc;
    display: block;
    font-size: 1.0em;
 }
+<<<<<<< HEAD
+a{
+   color:white;
+   font-size: .4em;
+   text-decoration:none;
+   cursor: pointer;
+}
+.input {
+   background-color: transparent;
+   border: none;
+   color: white;
+   font-size: 16px;
+   margin-top: 5px;
+   padding: 0;
+}
+::placeholder{
+   color:white;
+   opacity:1;
+   padding:3px;
+   margin:2px;
+}
+.input:focus {
+   outline: none;
+   width:100%;
+}
+
+.login-reg-foot-text{
+   text-align:center;
+   width:100%;
+   position:fixed;
+   bottom: 0px;
+   font-size: .4em;
+}
+=======
+>>>>>>> master
 p{
    font-size:1.2em;
    color:white;
@@ -101,6 +172,8 @@ td{
 .extend-input {
    width: 100%;
 }
+<<<<<<< HEAD
+=======
 .footer{
    border-bottom-left-radius:5px;
    border-bottom-right-radius:5px;
@@ -114,6 +187,7 @@ td{
    height:100%;
    background-color:#212121;
 }
+>>>>>>> master
 .form-section {
     box-sizing: border-box;
     align-items: center;
@@ -190,7 +264,17 @@ td{
 .login-reg-main {
    margin-left: 20%;
 }
+#Signin-btn{
+   min-width: 90px;
+}
+#Skip-btn{
+   min-width: 220px;
+   overflow: hidden;
 
+}
+
+<<<<<<< HEAD
+=======
 .main{
   /*border-radius:5px;*/
    grid-column:1/4;
@@ -220,6 +304,7 @@ td{
 
 }
 
+>>>>>>> master
 .visibility-icon input[type='checkbox'] {
    display: none;
 }

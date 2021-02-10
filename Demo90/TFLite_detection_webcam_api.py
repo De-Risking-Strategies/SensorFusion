@@ -3,7 +3,7 @@
 # (C) 2020 - De-Risking Strategies, LLC #
 # DRS ML/AI Flask API                   #
 # Authors: Pushkar K / Drew A           #
-# Updated 01-29-2021  See CHANGELOG.md  #
+# Updated 02-09-2021  See CHANGELOG.md  #
 #########################################
 import os
 import argparse
@@ -59,7 +59,6 @@ os.environ['kill_tensorFlow'] = 'False'
 #local var
 fps_flag = False #showing frames per second is false by default - controlled by 'F' keyboard command
 
-
 @app.route('/sf',methods=['GET'])
 def index():
    try:
@@ -67,28 +66,27 @@ def index():
     print('Skip: '+ sfSkip) 
    except:
     pass
-        
+   
    video_camera_flag = True
    os.environ['quit_flag'] = "run"
-   #On a reload
-   print('Quit and Reload')
+   
    quit_flag = os.environ.get('quit_flag')
+   print('Quit Flag: ', quit_flag)
+   
    if quit_flag == 'quit':#
        cv2.destroyAllWindows() # 
+       print('Quit: Destroy CV2 Windows')
        try:
            if videostream:
-             #videostream.release()
              videostream.stop()
        except:
            pass
    
    return render_template('index.html',i=sfSkip )
- 
 
 @app.route('/api', methods = ['GET','POST'])
 def api():
     # POST request - Sensor Fusion Commands
-   
     if request.method == 'POST':
         print('Incoming command from Sensor Fusion client ...')
         sfCommand = request.get_json()
@@ -130,12 +128,22 @@ def api():
             os.environ['labels_flag'] = 'labels_on'
             
             os.environ['quit_flag'] = 'quit'
+            print('Custom Quit Flag: ', os.environ['quit_flag'] )
+            #time.sleep(2)
+            
+            cv2.destroyAllWindows()
+            if videostream:
+                videostream.stop()
+                print('Videostream stopped OUT OF loop ')
+               
+            
 
-       
         #PreLoaded model changed 
         if first_char == 'm':
             chunks = sfCommand.split(",")
             model_changed_to = str(chunks[1])
+              
+            # THIS DOES NOT WORK!
             print('PreLoaded Model changed to: '+model_changed_to)
             
             filehandler = open('model.obj','wb')
@@ -149,6 +157,14 @@ def api():
         
             #rerun
             os.environ['quit_flag'] = 'quit'
+            print('PreLoaded Quit Flag: ', os.environ['quit_flag'] )
+            #time.sleep(2)
+            
+            cv2.destroyAllWindows()
+            if videostream:
+                videostream.stop()
+                print('Videostream stopped OUT OF loop ')
+               
             
         #Check if directory exists
         if first_char == 'd':
@@ -182,7 +198,6 @@ def api():
         elif sfCommand == 'scores_on':
             os.environ['scores_flag'] = sfCommand
             print('Toggle Scores Command =', os.environ['scores_flag'])
-            
         elif sfCommand == 'labels_off':
             os.environ['labels_flag'] = sfCommand
             print('Toggle Labels Command =', os.environ['labels_flag'])
@@ -200,6 +215,7 @@ def api():
             os.environ['quit_flag'] = sfCommand
             print('Quit command recieved')
         
+       
         return 'OK', 200
 
     # GET request
@@ -211,7 +227,7 @@ def api():
         print('Capture Flag Command =', os.environ['cap_flag'])
         
         message = {'Capture':'Capturing Images!'}
-        return jsonify(message)  # serialize and use JSON headers
+    return jsonify(message)  # serialize and use JSON headers
 
 @app.route('/') 
 def login():
@@ -236,11 +252,16 @@ def pwdreset():
 @app.route('/video_feed')
 def video_feed():
     #Video streaming route: goes into src attribute of an img tag
-    print('\nin FLASK: locals() value inside class\n', locals())
+    
     
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
+def reStart():
+    print('Restart argv was ',sys.argv)
+    print('Sys Exe was', sys.executable)
+    print('Restarting now...')
+    os.execv(sys.executable, ['python'] + sys.argv) 
+    
 # ============================
 
 # helper functions
@@ -283,28 +304,23 @@ def gen_frames():
     class VideoStream(object):
         """Camera object that controls video streaming from the Picamera"""
         def __init__(self,resolution=(640,480),framerate=30,target=None,args=()):
+            
             global capture_image_limit
             capture_image_limit = 2000
             
             global file_save_id
             file_save_id =0
-            
+      
             # Capture a USB Camera stream
             self.stream = cv2.VideoCapture(0)
- 
+            
             #VideoStream Instance
             instance = VideoStream.__qualname__
-            print('The class instance is: ',instance)
+            print('The videostream instance is: ',instance)
             #print('\nVIDEOSTREAM: locals() value inside class\n', locals())
             #print(dir(VideoStream))
  
-            #Reload
-            reloadClass = os.environ.get('reload')
-            if reloadClass == 'True':
-                print('Delete Self:')
-                del self
-                os.environ['reload'] = 'False'          
-                        
+                             
             ret = self.stream.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
             ret = self.stream.set(3,resolution[0])
             ret = self.stream.set(4,resolution[1])
@@ -316,8 +332,9 @@ def gen_frames():
             self.stopped = False            
             
         def __del__(self):
-            print ("Object destroyed");   
-
+            print ("Object destroyed") 
+           
+    
         def start(self):
         # Start the thread that reads frames from the video stream
             Thread(target=self.update,args=()).start()
@@ -338,7 +355,6 @@ def gen_frames():
 
         def read(self):
         # Return the most recent frame
-            this_instance = self
             return self.frame
 
         def stop(self):
@@ -365,7 +381,7 @@ def gen_frames():
     
 
     MODEL_NAME = args.modeldir
-    print('~~~~ Param Default Model Name: ' + str(MODEL_NAME))
+    print('~~~~ Param  Model Name: ' + str(MODEL_NAME))
     GRAPH_NAME = args.graph
     LABELMAP_NAME = args.labels
     min_conf_threshold = float(args.threshold)
@@ -410,16 +426,20 @@ def gen_frames():
     newModel = str(os.environ.get('run_model'))
     
     print("New Model Name: "+ newModel)
+        
     
     if newModel == "Demo90":
         CWD_PATH = "/home/pi/SensorFusion/"+ newModel 
+        
     elif newModel == 'Check.ID':
         CWD_PATH = "/home/pi/SensorFusion/checkid" 
+      
     else:
         CWD_PATH = "/home/pi/SensorFusion/PreLoadedModels/"+ newModel 
-            
-        print("Current Model Path: "+ CWD_PATH)
+       
 
+    print("Current Model Path: "+ CWD_PATH)
+    
     # Path to .tflite file, which contains the model that is used for object detection
     PATH_TO_CKPT = os.path.join(CWD_PATH,MODEL_NAME,GRAPH_NAME)
 
@@ -447,10 +467,11 @@ def gen_frames():
         print('TPU Detected' + PATH_TO_CKPT)
     else:
         interpreter = Interpreter(model_path=PATH_TO_CKPT)
-        print('No TPU detected!'+ PATH_TO_CKPT)            
-
+        print('No TPU detected: '+ PATH_TO_CKPT)            
+    
+    
     interpreter.allocate_tensors()
-
+            
     # Get model details
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
@@ -467,6 +488,7 @@ def gen_frames():
     freq = cv2.getTickFrequency()
 
     # Initialize video stream
+    global videostream
     videostream = VideoStream(resolution=(imW,imH),framerate=30).start()
     time.sleep(1)
     
@@ -535,11 +557,12 @@ def gen_frames():
                     object_name = labels[int(classes[i])] # Look up object name from "labels" array using class index 
                     #print(labels[int(classes[i])]+": "+str(i))  
                     
-                    
-                    if labels[int(classes[0])]== 'person':#NOTE - The bar is for one person only
-                        #print('Person Found!')
-                        person_found = True# used for bar below
-                    
+                    try: #Feb 9 - Bug Fix on model switching
+                        if labels[int(classes[0])]== 'person':#NOTE - The bar is for one person only
+                            #print('Person Found!')
+                            person_found = True# used for bar below
+                    except:
+                        pass
                     scores_flag = os.environ.get('scores_flag')
                     labels_flag = os.environ.get('labels_flag')
                     
@@ -674,25 +697,24 @@ def gen_frames():
             
             # Press 'q' to quit
             quit_flag = os.environ.get('quit_flag')
+            #print('Quit flag',quit_flag)
             if quit_flag == 'quit':#
                 print('Quit from Q command')
                 os.environ['quit_flag'] = ''
-                #cv2.destroyAllWindows()# DO NOT USE!
-                if videostream:
-                    #videostream.release()
-                    videostream.stop()
-                    print('Videostream stopped')
-                break
-            
                 
-            #print("quit_flag " + str(quit_flag))    
+                cv2.destroyAllWindows()
+                if videostream:
+                    videostream.stop()
+                    print('Videostream stopped in loop')
+                break
+               
+                
         # Clean up
         cv2.destroyAllWindows()
         if videostream:
-            #videostream.release()
             videostream.stop()
-            #os.system("pkill chromium")
-            
+           
+  
     except KeyboardInterrupt:
         pass
 
@@ -700,5 +722,5 @@ def gen_frames():
 if __name__ == '__main__':
      
      app.debug = True
-     app.run()
+     app.run(use_reloader=True)
      
