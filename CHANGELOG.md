@@ -5,6 +5,7 @@
 ## SENSOR FUSION CHANGELOG                     
 ----
 
+<<<<<<< HEAD
 ## Febuary 10, 2021 - Addressed the No TPU switching issuse, merged Puskar's PR37, Dara's PR41
 - The NO TPU mode was async processing so fast that the Quit in the loop never got triggered when switching models.  I added new code to the Flask postAPI commands 'c' and 'm' to force a destruction of the prior objects.
 - Matched the TFLite_detection_webcam_api.py core to the PR26 build, to repair the No TPU switching problems
@@ -14,6 +15,18 @@
   >Removed: PreLoadedModels/Model.01.Deer/Android/placeholder.txt, README.md, Raspberry_Pi_Guide.md, Sample_TFLite_model/detect.tflite and edgetpu.tflite 
   >Removed: PrelLoadedModels/Model101.Deer/Doc/*
 - Other minor tweaks in css
+=======
+## February 8, 2021 - Fix bad merge issues
+- Fix issues with previous merge
+
+## February 3, 2021 - Re-add password visibility functionality to login and password reset pages
+- Add password visilibility to login and passowrd reset pages
+- Add password hint bubble to password reset page
+- Re-organize css stylesheets to be in alphabetical order
+
+## February 2, 2021 - Pushkar Cleanup
+- Cleaned up unnecessary files and updated gitignore.
+>>>>>>> master
 
 ## February 1, 2021 - RE-Login implemented, 'SKIP TO SENSOR FUSION' added, Top Toolbar fixups, Added Registration to settings
 1. Made it possible to Re-Login again and suppors multiple users 
