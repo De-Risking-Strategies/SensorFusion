@@ -1,4 +1,3 @@
-
 .cache/
 .config/
 .local/
@@ -11,6 +10,7 @@
 **/Demo90-env/
 **/checkid-env/
 **/__Pycache__/
+**/__pycache__/
 **/SF-env/
 Bookshelf/
 Desktop/
@@ -35,9 +35,12 @@ scratch.txt
 .vimrc
 .viminfo
 .gitignore.swp
-.gitignore.save.1
+.gitignore.save.*
 .idea/
 project-posenet-master/models/
 webcam.lo
 venv/
+DRS Sensor Fusion Client Setup
+install_Demo.90.sh
+tflite_thermal_live_installation.sh
 

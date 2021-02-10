@@ -291,7 +291,7 @@ function postAPI(command) {
         console.log('Switch PreLoaded Model'+ currentlySelected);
         document.getElementById('switchModelImg').src = 'http://localhost:5000/static/assets/models_icon_selected_001.png'; 
         document.getElementById('switchCustomImg').src = 'http://localhost:5000/static/assets/models_icon_001.png'; 
-        timeRefresh(0);//Reload broswer
+        timeRefresh(1);//Reload broswer
       }
     }
    if(command == 'custom'){//CUSTOM MODEL
@@ -351,7 +351,7 @@ function postAPI(command) {
       setCookie('token',null,1);
       var path = window.location.pathname;
       if(path !="/"){
-        timeRefresh(0);//Reload broswer if not on the Index page
+        timeRefresh(1);//Reload broswer if not on the Index page
       }
     }
    if(command == 'kill_tesnorFlow'){
@@ -562,10 +562,10 @@ function addCamera(){
   //SENSOR 1 CAMERA  
   document.getElementById('camera1Div').appendChild(videoStream);
   //DEBUG: For Javascript debugging, comment the line above and uncomment the lines below
-  /*var nullStream = document.createElement('img');
-  nullStream.style.display = "none";
-  document.getElementById('camera1Div').appendChild(nullStream);//for debugging
-  */ 
+  //var nullStream = document.createElement('img');
+  //nullStream.style.display = "none";
+  //document.getElementById('camera1Div').appendChild(nullStream);//for debugging
+   
 }
 
 

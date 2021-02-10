@@ -5,6 +5,16 @@
 ## SENSOR FUSION CHANGELOG                     
 ----
 
+## Febuary 10, 2021 - Addressed the No TPU switching issuse, merged Puskar's PR37, Dara's PR41
+- The NO TPU mode was async processing so fast that the Quit in the loop never got triggered when switching models.  I added new code to the Flask postAPI commands 'c' and 'm' to force a destruction of the prior objects.
+- Matched the TFLite_detection_webcam_api.py core to the PR26 build, to repair the No TPU switching problems
+- Merged PushKar PR37 - .gitignore, Deleted: /Demo90/README.md, Demo90/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip.1, Demo90/sf-db.py, sf-dbapp.py, sf.db, , test.mp4, test1.jpg, checkid reeadme.md, test.mp4, test1.jpg (commit 88ffcec)
+- Merged Dara's PR41: Commit b3fe09e 
+  >Updated: login.css, pwereset.cs, register.css,login.js, pwdreset.js, register.js, login.html, pwereset.html, register.html, test.mp4, test1.jpg (from all model dirs)
+  >Removed: PreLoadedModels/Model.01.Deer/Android/placeholder.txt, README.md, Raspberry_Pi_Guide.md, Sample_TFLite_model/detect.tflite and edgetpu.tflite 
+  >Removed: PrelLoadedModels/Model101.Deer/Doc/*
+- Other minor tweaks in css
+
 ## February 1, 2021 - RE-Login implemented, 'SKIP TO SENSOR FUSION' added, Top Toolbar fixups, Added Registration to settings
 1. Made it possible to Re-Login again and suppors multiple users 
 2. Added a 'SKIP TO SENSOR FUSION' feature that allows you to login and perform all actions except Uploading files
@@ -30,7 +40,7 @@
 
 >NOTE 1 - Login tokens last for 1 day and then auto expire .  You will need to Logoff and Login again to use the app.
 
->NOTE 2 - Forgot Password Kesy are one-time use, and will  auto-expire in 1 hour 
+>NOTE 2 - Forgot Password Keys are one-time use, and will  auto-expire in 1 hour 
 
 ## January 15, 2021 - Upload to Server with Login and Token, CSS fixups, Validation and Error handling, Progress Bar on Upload, Fixed Score%-Label Model switch bug
 - Added full Zip file login with token and upload with description to secure Signed URL

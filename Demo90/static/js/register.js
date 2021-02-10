@@ -8,19 +8,28 @@ function initReg(){
 }
 function createAccount(){
 	var forgot = document.getElementById("login-section");
- 	const row0 = '<br/><div border="0"><span>Create New Account</span>';
-	
-  const row1 = '<br><div class="iBox"><label for="firstName">First</label><input id="firstName" name="first" placeholder="First name" maxlength="128" autofocus></input></div>';
+ 	const row0 = '<h2>Create New Account</h2><div>';
+	//row 1
+  const row1 = '<div class="iBox"><label for="firstName">First</label><input id="firstName" name="first" placeholder="First name" maxlength="128" autofocus></input></div>';
+  //row 2
   const row2 = '<br><div class="iBox"><label for="lastName">Last</label><input id="lastName" name="last" placeholder="Last Name" maxlength="128" onautofocus></input></div>';
-  
+  //row 3
   const row3 = '<br><div class="iBox"><label for="email">Email</label><input class="input" id="email" name="email" placeholder="your@email.com" maxlength="256" onchange="validateEmail(this);return false"></input></div>';
+  // row 4
+  //const row4 = '<br><div class="iBox"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
+  const row4 = '<br><div class="iBox with-eye pswd-tip"><div class="no-outline"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
+  // row 5
+  //const row5 = '<br><div class="iBox"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
+  const row5 = '<div class="visibility-icon"><input id="pswd-vis" type="checkbox" minlength="8" onclick="showPassword1()"></input><label for="pswd-vis"></label></div><span class="pswd-tip-text"><h3>Password requirements:</h3><h3 class="pswd-req">- must be at least 6 characters long</h3><h3 class="pswd-req">- must contain 1 capital letter</h3><h3 class="pswd-req">- must contain 1 lowercase letter</h3><h3 class="pswd-req">- must contain 1 number</h3><h3 class="pswd-req">- must contain 1 symbol</h3></span></div>';
+  // row 6
+  const row6 = '<br><div class="iBox with-eye"><div class="no-outline"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
+  // row 7
+  const row7 = '<div class="visibility-icon"><input id="confirm-pswd-vis" type="checkbox" onclick="showPassword2()"></input><label for="confirm-pswd-vis"></label></div></div>';
+  //row 8
+  const row8 = '</div><br/>';
   
-  const row4 = '<br><div class="iBox"><label for="password">Password </label><input id="password" name="password" placeholder="Password" type="password" minlength="6" pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9 ]).*$" onChange="" required></input></div>';
-  const row5 = '<br><div class="iBox"><label for="re-enterPassword">Re-Enter Password</label><input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="validatePasswordsMatch();return false" required></input></div>';
-  const row6 = '</div><br/>';
-  
-  //eye - future
-  const fEye1 ='<div class="form-section with-eye"><div class="no-outline">';
+  //eye 
+  const fEye1 ='<div class="with-eye"><div class="no-outline">'
   const fEye2 ='<label for="re-enterPassword">Re-Enter Password</label>';
   const fEye3 ='<input id="re-enterPassword" name="re-enterPassword" placeholder="Re-Enter Password" type="password" onChange="return checkPwMatch()" required></input></div>';
   const fEye4 ='<div class="visibility-icon">';
@@ -39,21 +48,21 @@ function createAccount(){
   
   const age1 = '<div class="term">'
   const age2 ='<input id="age-term" name="age-term" type="checkbox" required></input>';
-  const age3 ='<label for="age-term"><a href="/static/assets/drs-I-am-17-or-older.md" style="color:#fff" target="_blank"  >I am 17 years or Older</a></label>';
-  const termBtn ='<div class="term-btns" id="term-btns"></div></div>';
-  const ageTerm = age1+age2+age3+termBtn; 
-  
-  const foot1 = '<a href="http://localhost:5000"><span   class="btn" style="color:#bb86fc">CANCEL</span></a>';
-  const foot2 = '<a id="submit-btn" class="btn" onclick="sendRegReq(); return false"><span style="color:#bb86fc">CREATE ACCOUNT</span></a>';
-  const foot3 = '</div>'  
-	const footer = foot1+foot2+foot3;
+  const age3 ='<label for="age-term"><a href="/static/assets/drs-I-am-17-or-older.md" style="color:#fff" target="_blank"  >I am 17 years or Older</a></label></div></div>';
+  const ageTerm = age1+age2+age3; 
+ 
+  const foot1 = '<div class="btns term-btns" id="term-btns">';
+  const foot2 = '<a href="http://localhost:5000"><span   class="btn">CANCEL</span></a>';
+  const foot3 = '<a id="submit-btn" onclick="sendRegReq(); return false"><span class="btn">CREATE ACCOUNT</span></a>';
+  const foot4 = '</div></div>'
+  const footer = foot1+foot2+foot3+foot4;
   
   const wMsg1 = '<div class="msg-section" style="display:none"><div class="msgs"><div class="warning-msgs"></div></div><div>';
   const sMsg = '<div class="msgs" style="display:none"><div class="success-msgs"><h3></h3><a href="http://localhost:5000">Login</a></div></div>';    
       
       
-  var regHtml = row0+row1+row2+row3+row4+row5+row6+terms+privTerm+ageTerm+footer+wMsg1+sMsg;
-    forgot.innerHTML  = regHtml;
+  var regHtml = row0+row1+row2+row3+row4+row5+row6+row7+row8+terms+privTerm+ageTerm+footer+wMsg1+sMsg;
+  forgot.innerHTML  = regHtml;
 	var input = document.addEventListener("keyup", function(event){
 		if(event.keyCode == 13){
 		document.getElementById('submit-btn').click();
