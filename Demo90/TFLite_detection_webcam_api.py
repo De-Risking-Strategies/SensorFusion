@@ -15,10 +15,13 @@ import time
 
 from threading import Thread
 import importlib.util
+from hashlib import sha256
 
 #Flask 
 import json
-from flask import Flask, jsonify, request, render_template, Response, session, stream_with_context
+import sqlite3
+from flask import Flask, jsonify, request, render_template, Response, session, stream_with_context, redirect, url_for, flash
+from flask_sqlalchemy import SQLAlchemy
 from importlib import reload 
 import gc
 import pickle
@@ -28,6 +31,12 @@ from sfui import widgets #custom package
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 #Disable Flask Cache as it interferes with streaming
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sf.db'
+#app.secret_key = 'i need a new key'
+app.secret_key = 'HKkSeJXfs1aaQNpon0JvFg6H8urt5YWy'
+
+db = SQLAlchemy(app)
 
 capture_image_limit = 2000
 
@@ -222,13 +231,15 @@ def api():
 
 @app.route('/') 
 def login():
+#    embedVar='Login'
+#    return render_template('login.html',embed=embedVar )
    embedVar='Login'
    
    os.environ['quit_flag'] = "quit"
    print('Quit command on Login')
    return render_template('login.html',embed=embedVar )
 
-@app.route('/register') 
+@app.route('/register', methods=['GET','POST']) 
 def register():
    embedVar='Register'
    return render_template('register.html',embed=embedVar )
@@ -238,7 +249,6 @@ def pwdreset():
    embedVar='pwdreset'
    return render_template('pwdreset.html',embed=embedVar )
 
- 
 @app.route('/video_feed')
 def video_feed():
     #Video streaming route: goes into src attribute of an img tag
@@ -253,6 +263,41 @@ def reStart():
     os.execv(sys.executable, ['python'] + sys.argv) 
     
 # ============================
+
+# helper functions
+
+def add_user(firstName, lastName, email, captureLimit):
+    try:
+        with sqlite3.connect('sf.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute("""
+                INSERT INTO user (firstName, lastName, email, captureLimit) values (?, ?, ?, ?);
+                """, (firstName, lastName, email, captureLimit))
+            result = {'status': 1, 'message': 'User Added'}
+    except:
+        result = {'status': 0, 'message': 'error'}
+    return result
+
+
+def get_all_users():
+    with sqlite3.connect('sf.db') as connection:
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM user ORDER BY id desc")
+        all_users = cursor.fetchall()
+        return all_users
+
+
+def delete_user(user_id):
+    try:
+        with sqlite3.connect('sf.db') as connection:
+            connection.execute("DELETE FROM user WHERE ID = ?;", (user_id,))
+            result = {'status': 1, 'message': 'USER Deleted'}
+    except:
+        result = {'status': 0, 'message': 'Error'}
+    return result
+
+# end helper functions?
+
 def gen_frames():
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
 # Source - Adrian Rosebrock, PyImageSearch: https://www.pyimagesearch.com/2015/12/28/increasing-raspberry-pi-fps-with-python-and-opencv/
